@@ -1,5 +1,7 @@
 import * as React from 'react';
-import styled from 'styled-components/native'
+import {View} from 'react-native';
+import styled from 'styled-components/native';
+import {createGrid} from '../../GameLogic/Grid';
 
 const GameScreenBoxStyled = styled.View`
             margin-top: 10%;
@@ -8,12 +10,26 @@ const GameScreenBoxStyled = styled.View`
             background-color:#556b2f;
             width: 80%;
             height: 50%;
+     border-bottom-right-radius: 50;
+
 `;
 
-export const GameScreen = (props) => {
 
-    return (
 
-        <GameScreenBoxStyled />
-    );
-};
+export class GameScreen extends React.Component<any, any> {
+    private grid: any[];
+
+    constructor(props) {
+        super(props);
+        this.grid = createGrid();
+    }
+
+    public render() {
+        return (
+
+            <GameScreenBoxStyled >
+                { this.grid }
+            </GameScreenBoxStyled>
+        );
+    }
+}

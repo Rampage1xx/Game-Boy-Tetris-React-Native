@@ -9,7 +9,10 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
   //  "allowSyntheticDefaultExports": true,
-    "types": [],
+  //  "allowJs": true,
+    "types": [
+      "jest"
+    ],
     "lib": [
       "es2017",
       "dom",
@@ -18,7 +21,6 @@
   },
   "exclude": [
     "node_modules",
-    "**/test/*.ts",
     "*.d.ts"
   ],
   "include": [

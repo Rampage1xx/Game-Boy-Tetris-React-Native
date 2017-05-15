@@ -4,19 +4,30 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "dependencies": {
+    "immutable": "next",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
-    "react-router": "^4.1.1"
+    "react-native-shadow": "^1.1.2",
+    "react-router": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-immutable": "^4.0.0",
+    "styled-components": "^1.4.6"
   },
   "devDependencies": {
+    "@types/enzyme": "^2.8.0",
+    "@types/jest": "^19.2.3",
     "@types/react-native": "^0.44.0",
-    "babel-jest": "20.0.1",
-    "babel-preset-react-native": "1.9.2",
+    "babel-jest": "^20.0.1",
+    "babel-preset-react-native": "^1.9.2",
+    "enzyme": "^2.8.2",
     "jest": "20.0.1",
+    "react-native-mock": "^0.3.1",
     "react-test-renderer": "16.0.0-alpha.6",
+    "ts-jest": "^20.0.3",
     "tslint": "^5.2.0",
     "tslint-microsoft-contrib": "^5.0.0",
     "tslint-react": "^3.0.0",
@@ -24,6 +35,9 @@
     "typescript": "^2.3.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "testMatch": [
+      "**/**/tests.(ts|tsx|js)"
+    ]
   }
 }
