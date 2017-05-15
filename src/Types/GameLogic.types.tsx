@@ -1,6 +1,6 @@
 interface IChaneGridStatus {
     (patameter: {
-        dataGrid: number[][],
+        dataGridState: number[][],
         blockMasterArray: number[][],
         blockPositionVertical: number,
         offset: number,

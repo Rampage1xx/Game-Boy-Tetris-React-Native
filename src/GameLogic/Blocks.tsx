@@ -1,33 +1,59 @@
-const I = [[4]];
-const O = [[2, 0, 0], [2, 0, 0]];
-const T = [[3, 0], [0, 1, 0, 0]];
-const S = [[2, 0, 0, 0], [0, 2, 0, 0]];
-const Z = [[0, 2, 0, 0], [2, 0, 0]];
-const J = [[3, 0], [2, 0, 0]];
-const L = [[3, 0], [0, 0, 1, 0]];
+const I = {
+    0: [[1, 1, 1, 1]],
+    1: [[1], [1], [1], [1]],
+    2: [[1, 1, 1, 1]],
+    3: [[1], [1], [1], [1]]
+};
 
-const GameArray: number [][] = [];
-
-const UnpackTetromino = (tetronimo: {} []) => {
-    const temporaryArray: number[] = [];
-    tetronimo.map((cellContent: number []) => {
-
-        cellContent.map(passedNumber => {
-            if (passedNumber === 0) {
-                temporaryArray.push(0);
-            } else {
-                for (const i = 0; i < passedNumber; i + 1) {
-                    temporaryArray.push(1);
-                }
-            }
-            GameArray.push(temporaryArray);
-        });
-
-    });
+const O = {
+    0: [[1, 1], [1, 1]],
+    1: [[1, 1], [1, 1]],
+    2: [[1, 1], [1, 1]],
+    3: [[1, 1], [1, 1]]
 
 };
 
-const makeArray = () => {
-    const temporaryArray: number [] = [];
+const T = {
+    0: [[1], [1, 1], [1]],
+    1: [[0, 1], [1, 1, 1]],
+    2: [[0, 1], [1, 1], [0, 1]],
+    3: [[1, 1, 1], [0, 1]]
+};
+
+const S = {
+    0: [[1, 1], [0, 1, 1]],
+    1: [[0, 1], [1, 1], [1]],
+    2: [[1, 1], [0, 1, 1]],
+    3: [[0, 1], [1, 1], [1]]
+};
+
+const Z = {
+    0: [[0, 1, 1], [1, 1]],
+    1: [[1], [1, 1], [0, 1]],
+    2: [[0, 1, 1], [1, 1]],
+    3: [[1], [1, 1], [0, 1]]
+};
+
+const J = {
+    0: [[1, 1, 1], [0, 0, 1]],
+    1: [[1, 1], [1], [1]],
+    2: [[1], [1, 1, 1]],
+    3: [[0, 1], [0, 1], [1, 1]]
+};
+
+const L = {
+    0: [[1, 1, 1], [1]],
+    1: [[1], [1], [1], [1, 1]],
+    2: [[0, 0, 1], [1, 1, 1]],
+    3: [[1, 1], [0, 1], [0, 1]]
+};
+
+const BlocksArray = [I, O, T, S, Z, J, L];
+
+const ColorsArray = ['red', 'blue', 'yellow', 'green'];
+
+const startGame = (blocks: [{0, 1, 2, 3}] , colors: string[] ) => {
+    const pickBlock: {0, 1, 2, 3} = blocks[Math.floor(Math.random() * blocks.length)];
+    const pickColor: string = colors[(Math.floor(Math.random() * colors.length))];
 
 };

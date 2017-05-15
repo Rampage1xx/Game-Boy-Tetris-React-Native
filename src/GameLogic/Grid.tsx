@@ -51,11 +51,13 @@ export const makeDataGrid = () => {
 
 export const funzioneCheBlocca = (state) => {
 
+
 };
 
-export const changeGridStatus: IChaneGridStatus = ({dataGrid, blockMasterArray, blockPositionVertical, offset}) => {
+
+export const changeGridStatus: IChaneGridStatus = ({dataGridState, blockMasterArray, blockPositionVertical, offset}) => {
     const loop = true;
-    const state = dataGrid;
+    const state = dataGridState;
 
     generateData: while (loop) {
         blockMasterArray.forEach((blockSubArray, arrayIndex) => {
@@ -65,7 +67,7 @@ export const changeGridStatus: IChaneGridStatus = ({dataGrid, blockMasterArray, 
                     if (indexNumber >= (offset + blockIndex - 1)) {
 
                         if (numberExtracted === 1 && blockNumber === 1) {
-                            funzioneCheBlocca(dataGrid);
+                            funzioneCheBlocca(dataGridState);
 
                             break generateData;
                         } else if (blockNumber === 1) {
