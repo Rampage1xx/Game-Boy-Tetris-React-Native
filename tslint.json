@@ -12,6 +12,7 @@
     "no-multiline-string": false,
     "no-relative-imports": false,
     "no-any": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "no-increment-decrement":false
   }
 }

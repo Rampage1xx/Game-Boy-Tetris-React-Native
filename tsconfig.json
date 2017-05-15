@@ -10,6 +10,7 @@
     "allowSyntheticDefaultImports": true,
   //  "allowSyntheticDefaultExports": true,
   //  "allowJs": true,
+    "allowUnusedLabels": true,
     "types": [
       "jest"
     ],
