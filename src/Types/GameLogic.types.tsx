@@ -1,10 +1,13 @@
-interface IChaneGridStatus {
-    (patameter: {
-        dataGridState: number[][],
-        blockMasterArray: number[][],
-        blockPositionVertical: number,
-        offset: number,
-        previousState?: any
-    });
+interface IChangeGridStatus {
+    (parameter: IChangeGridStatusParameters);
+}
+
+interface IChangeGridStatusParameters {
+
+    dataGridState: number[][],
+    blockMasterArray: number[][],
+    blockPositionVertical: number,
+    blockPositionHorizontal: number,
+
 }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'react-native';
 import styled from 'styled-components/native';
-import any = jasmine.any;
+import {fill} from 'lodash';
 
 const SingleCellStyled = styled.View`
         height: 5%;
@@ -49,38 +49,42 @@ export const makeDataGrid = () => {
     return temporaryGrid;
 };
 
-export const funzioneCheBlocca = (state) => {
+export const changeGridStatus: IChangeGridStatus = (parameters) => {
+    const {dataGridState, blockMasterArray, blockPositionVertical, blockPositionHorizontal} = parameters;
+    const horizontalGridLength = 10;
+    const temporaryGrid = dataGridState;
 
+    for (let i = 0; i < blockMasterArray.length; i++) {
+        const blockRow = blockMasterArray[i];
+        const verticalGridRow = blockPositionVertical - i;
+        const totalOccupiedSpace = (blockPositionHorizontal + blockMasterArray[i].length);
 
-};
+        if (verticalGridRow < 0) {
+            // irrelevant movement
+            break;
+        } else if (totalOccupiedSpace > horizontalGridLength) {
+            // illegal movement
+            return {temporaryGrid: dataGridState, completed: false};
+        }
 
+        const zeros = blockRow.filter(blockNumbers => blockNumbers === 0);
+        // zeroes are only relevant to the starting  horizontal offset position.
+        const correctedPosition = blockPositionHorizontal + zeros.length;
+        // the number to slice should be only those affected by the blocks presence (represented by number one)
+        const endSlice = blockPositionHorizontal + blockRow.length - zeros.length;
+        //const gridToFill = blockPositionHorizontal + blockRow.length - zeroes.length;
 
-export const changeGridStatus: IChaneGridStatus = ({dataGridState, blockMasterArray, blockPositionVertical, offset}) => {
-    const loop = true;
-    const state = dataGridState;
+        // blockPositionHorizontal
+        const resultRow = temporaryGrid[verticalGridRow]
+            .slice(correctedPosition, (correctedPosition + endSlice));
 
-    generateData: while (loop) {
-        blockMasterArray.forEach((blockSubArray, arrayIndex) => {
-            blockSubArray.forEach((blockNumber: number, blockIndex) => {
+        const searchResult = resultRow.indexOf(1);
 
-                state[blockPositionVertical + arrayIndex - 1].forEach((numberExtracted, indexNumber) => {
-                    if (indexNumber >= (offset + blockIndex - 1)) {
+        if (searchResult !== -1) return {dataGridState, completed: false};
 
-                        if (numberExtracted === 1 && blockNumber === 1) {
-                            funzioneCheBlocca(dataGridState);
+        fill(temporaryGrid[verticalGridRow], 1, correctedPosition, endSlice);
 
-                            break generateData;
-                        } else if (blockNumber === 1) {
-                            state[blockPositionVertical + arrayIndex - 1][indexNumber] = blockNumber;
-                        }
-
-                    }
-                });
-
-            });
-        });
-
-        return state;
     }
-};
 
+    return {temporaryGrid, completed: true};
+};

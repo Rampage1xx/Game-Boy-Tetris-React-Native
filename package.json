@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "immutable": "next",
+    "lodash": "^4.17.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
     "react-native-shadow": "^1.1.2",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/enzyme": "^2.8.0",
     "@types/jest": "^19.2.3",
+    "@types/lodash": "^4.14.64",
     "@types/react-native": "^0.44.0",
     "@types/react-test-renderer": "^15.5.0",
     "babel-jest": "^20.0.1",
