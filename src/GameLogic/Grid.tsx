@@ -1,37 +1,8 @@
 import * as React from 'react';
 import 'react-native';
-import styled from 'styled-components/native';
 import {fill} from 'lodash';
 
-const SingleCellStyled = styled.View`
-        height: 5%;
-        width: 6.25%
-`;
 
-const CompleteRowStyled = styled.View`
-        flex-direction: row;
-`;
-
-export const createGrid = (): any [] => {
-    const horizontalSquares = 10;
-    const verticalSquares = 16;
-    const temporaryGrid: any[] = [];
-    for (let verticalIndex = 0; verticalIndex < verticalSquares; verticalIndex++) {
-        const row: any [] = [];
-        for (let horizontalRowsMade = 0; horizontalRowsMade < horizontalSquares; horizontalRowsMade++) {
-            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade)  }/>);
-            row.push(cell);
-        }
-        const CompleteRow = (
-            <CompleteRowStyled key={ verticalIndex }>
-                { row }
-            </CompleteRowStyled>
-        );
-        temporaryGrid.push(CompleteRow);
-    }
-
-    return temporaryGrid;
-};
 
 export const makeDataGrid = () => {
     const horizontalSquares = 10;
@@ -50,21 +21,26 @@ export const makeDataGrid = () => {
 };
 
 export const changeGridStatus: IChangeGridStatus = (parameters) => {
-    const {dataGridState, blockMasterArray, blockPositionVertical, blockPositionHorizontal} = parameters;
+    const {dataGridState, block, blockPositionVertical, blockPositionHorizontal} = parameters;
     const horizontalGridLength = 10;
     const temporaryGrid = dataGridState;
+    const error = 'Illegal movement';
 
-    for (let i = 0; i < blockMasterArray.length; i++) {
-        const blockRow = blockMasterArray[i];
+    for (let i = 0; i < block.length; i++) {
+        // picks a row of the block
+        const blockRow = block[i];
+        // gets higher as the rows of the block go up
         const verticalGridRow = blockPositionVertical - i;
-        const totalOccupiedSpace = (blockPositionHorizontal + blockMasterArray[i].length);
+        // space occupied by the block
+        const totalOccupiedSpace = (blockPositionHorizontal + block[i].length);
 
         if (verticalGridRow < 0) {
             // irrelevant movement
             break;
         } else if (totalOccupiedSpace > horizontalGridLength) {
             // illegal movement
-            return {temporaryGrid: dataGridState, completed: false};
+            throw error;
+            // return {temporaryGrid: dataGridState, completed: false};
         }
 
         const zeros = blockRow.filter(blockNumbers => blockNumbers === 0);
@@ -80,11 +56,19 @@ export const changeGridStatus: IChangeGridStatus = (parameters) => {
 
         const searchResult = resultRow.indexOf(1);
 
-        if (searchResult !== -1) return {dataGridState, completed: false};
+        if (searchResult !== -1) return {data: {dataGridState}, locked: true};
 
         fill(temporaryGrid[verticalGridRow], 1, correctedPosition, endSlice);
 
     }
 
-    return {temporaryGrid, completed: true};
+    return {
+        completed: true,
+        data: {
+            dataGridState: temporaryGrid,
+            blockPositionVertical: blockPositionVertical + 1,
+            blockPositionHorizontal,
+            block
+        }
+    };
 };

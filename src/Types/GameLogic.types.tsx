@@ -4,10 +4,17 @@ interface IChangeGridStatus {
 
 interface IChangeGridStatusParameters {
 
-    dataGridState: number[][],
-    blockMasterArray: number[][],
-    blockPositionVertical: number,
-    blockPositionHorizontal: number,
+    dataGridState: number[][];
+    block: number[][];
+    blockPositionVertical: number;
+    blockPositionHorizontal: number;
 
 }
 
+
+interface IChangeGridStatusResult {
+
+    completed?: boolean;
+    locked?: boolean;
+    data: IChangeGridStatusParameters
+};

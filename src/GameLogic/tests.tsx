@@ -24,24 +24,33 @@ const baseDataGrid = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-const expectedDataWithBlock =    { temporaryGrid:
-    [ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 1, 1, 1 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ],
-    completed: true }
+const expectedDataWithBlock = {
+    completed: true,
+    dataGridState: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+};
+
+const parameters: IChangeGridStatusParameters = {
+    dataGridState: baseDataGrid,
+    blockPositionHorizontal: 7,
+    blockPositionVertical: 5,
+    block: L[0]
+};
 describe('testing logic functions', () => {
     it('should generate a view grid', () => {
         const grid = createGrid();
@@ -55,28 +64,24 @@ describe('testing logic functions', () => {
     });
 
     it('should modify the blank data grid', () => {
-        const parameters: IChangeGridStatusParameters = {
-            dataGridState: baseDataGrid,
-            blockPositionHorizontal: 7,
-            blockPositionVertical: 5,
-            blockMasterArray: L[0]
-        };
 
         const result = changeGridStatus(parameters);
-        expect(result).toEqual(expectedDataWithBlock);
+        expect(result.data.dataGridState).toEqual(expectedDataWithBlock.dataGridState);
     });
 
     it('should not allow an illegal movement', () => {
-        const expectedData = expectedDataWithBlock;
-        expectedData.completed = false;
-        console.log(expectedData)
-        const parameters: IChangeGridStatusParameters = {
+        // const expectedData = expectedDataWithBlock;
+        // expectedData.completed = false;
+        const parameters2: IChangeGridStatusParameters = {
             dataGridState: baseDataGrid,
             blockPositionHorizontal: 9,
             blockPositionVertical: 5,
-            blockMasterArray: L[0]
+            block: L[0]
         };
-        const result = changeGridStatus(parameters);
-        expect(result).toEqual(expectedData);
-    })
+        expect( changeGridStatus(parameters2)).toThrowError();
+    });
+
+    it('should move a step forward the block', () => {
+
+    });
 });

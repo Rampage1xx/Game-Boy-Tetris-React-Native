@@ -13,6 +13,7 @@
     "no-relative-imports": false,
     "no-any": false,
     "member-ordering": false,
-    "no-increment-decrement":false
+    "no-increment-decrement":false,
+    "no-backbone-get-set-outside-model": false
   }
 }

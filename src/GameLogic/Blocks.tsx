@@ -43,17 +43,18 @@ const J = {
 
 export const L = {
     0: [[1, 1, 1], [1]],
-    1: [[1], [1], [1], [1, 1]],
+    1: [[1], [1], [1, 1]],
     2: [[0, 0, 1], [1, 1, 1]],
-    3: [[1, 1], [0, 1], [0, 1]]
+    3: [[1, 1], [0, 1], [0, 1]],
+    4: [3, 2, 3, 2]
 };
 
 const BlocksArray = [I, O, T, S, Z, J, L];
 
 const ColorsArray = ['red', 'blue', 'yellow', 'green'];
 
-const startGame = (blocks: [{0, 1, 2, 3}] , colors: string[] ) => {
-    const pickBlock: {0, 1, 2, 3} = blocks[Math.floor(Math.random() * blocks.length)];
+const startGame = (blocks: [{ 0, 1, 2, 3 }], colors: string[]) => {
+    const pickBlock: { 0, 1, 2, 3 } = blocks[Math.floor(Math.random() * blocks.length)];
     const pickColor: string = colors[(Math.floor(Math.random() * colors.length))];
 
 };

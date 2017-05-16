@@ -8,7 +8,7 @@
     "test-watch": "jest --watch"
   },
   "dependencies": {
-    "immutable": "next",
+    "immutable": "4.0.0-rc.2",
     "lodash": "^4.17.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
