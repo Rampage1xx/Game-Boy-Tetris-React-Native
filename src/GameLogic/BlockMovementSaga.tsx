@@ -2,17 +2,16 @@ import {actionMovingBlock, actionNextBlock, actionRenderGrid, MOVING_BLOCK} from
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {changeGridStatus} from './Grid';
 
-export function* blockMovementWorker({block, grid, position, blockPositionHorizontal, type}) {
+export function* blockMovementWorker({block, dataGridState, blockPositionVertical, blockPositionHorizontal, type}) {
+
     const error = 'Block Movement Worker should receive an object containing completed or locked';
     const parameters: IChangeGridStatusParameters = {
-        blockPositionVertical: position,
-        dataGridState: grid,
+        blockPositionVertical,
+        dataGridState,
         blockPositionHorizontal,
-        block: block
+        block
     };
-
     const moveResult: IChangeGridStatusResult = yield call(changeGridStatus, parameters);
-
     if (moveResult.completed) {
 
         yield put(actionRenderGrid(moveResult.data.dataGridState));
@@ -32,5 +31,4 @@ export function* blockMovementWorker({block, grid, position, blockPositionHorizo
 
 export function* blockMovement() {
     yield takeLatest(MOVING_BLOCK, blockMovementWorker);
-
 }

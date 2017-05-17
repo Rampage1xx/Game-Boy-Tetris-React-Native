@@ -2,28 +2,40 @@ import {View} from 'react-native';
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import {changeGridStatus, createGrid, makeDataGrid} from './Grid';
+import {changeGridStatus, makeDataGrid} from './Grid';
 import {L} from './Blocks';
+import {createGrid} from '../Components/GameScreen/Cells';
+import {store} from '../Store/Reducers';
+import {actionMovingBlock, actionRenderGrid} from './Actions';
 
-const baseDataGrid = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
-
+let baseDataGrid;
+let parameters: IChangeGridStatusParameters;
+beforeEach(() => {
+    baseDataGrid = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ];
+    parameters = {
+        dataGridState: baseDataGrid,
+        blockPositionHorizontal: 7,
+        blockPositionVertical: 5,
+        block: L[0]
+    };
+});
 const expectedDataWithBlock = {
     completed: true,
     dataGridState: [
@@ -42,15 +54,9 @@ const expectedDataWithBlock = {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 };
 
-const parameters: IChangeGridStatusParameters = {
-    dataGridState: baseDataGrid,
-    blockPositionHorizontal: 7,
-    blockPositionVertical: 5,
-    block: L[0]
-};
 describe('testing logic functions', () => {
     it('should generate a view grid', () => {
         const grid = createGrid();
@@ -59,6 +65,7 @@ describe('testing logic functions', () => {
     });
 
     it('should generate a  blank data grid', () => {
+
         const gridData = makeDataGrid();
         expect(gridData).toEqual(baseDataGrid);
     });
@@ -67,6 +74,7 @@ describe('testing logic functions', () => {
 
         const result = changeGridStatus(parameters);
         expect(result.data.dataGridState).toEqual(expectedDataWithBlock.dataGridState);
+
     });
 
     it('should not allow an illegal movement', () => {
@@ -78,10 +86,27 @@ describe('testing logic functions', () => {
             blockPositionVertical: 5,
             block: L[0]
         };
-        expect( changeGridStatus(parameters2)).toThrowError();
+
+        expect(() => changeGridStatus(parameters2)).toThrow();
+    });
+
+    it('should update the store', () => {
+        const storeResults = store.dispatch(actionRenderGrid(expectedDataWithBlock.dataGridState));
+        expect((store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState'))
+            .toEqual(expectedDataWithBlock.dataGridState);
+
     });
 
     it('should move a step forward the block', () => {
 
+        const sagaParameters = {
+            block: L[0],
+            dataGridState: baseDataGrid,
+            blockPositionVertical: 5,
+            type: '',
+            blockPositionHorizontal: 15
+        };
+        store.dispatch(actionMovingBlock(sagaParameters));
     });
+
 });

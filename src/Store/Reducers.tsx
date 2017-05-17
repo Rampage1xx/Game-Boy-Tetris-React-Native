@@ -4,6 +4,7 @@ import {combineReducers} from 'redux-immutable';
 import createSagaMiddleware from 'redux-saga';
 import {routerMiddleware, routerReducer} from 'react-router-redux';
 import {sagaRoot} from './SagaRoot';
+import {GameLogicStore} from '../GameLogic/GameLogicStore';
 
 declare const window: any;
 // debug for redux
@@ -15,7 +16,8 @@ const sagaMiddleware = createSagaMiddleware();
 const historyRouter = routerMiddleware(History);
 
 const reducers = combineReducers({
-    router: routerReducer
+    router: routerReducer,
+    GameLogicReducer: GameLogicStore
 });
 
 export const store = createStore(

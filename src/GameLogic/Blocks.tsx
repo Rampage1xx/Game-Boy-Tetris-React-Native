@@ -2,14 +2,16 @@ const I = {
     0: [[1, 1, 1, 1]],
     1: [[1], [1], [1], [1]],
     2: [[1, 1, 1, 1]],
-    3: [[1], [1], [1], [1]]
+    3: [[1], [1], [1], [1]],
+    4: [4, 1, 4, 1]
 };
 
 const O = {
     0: [[1, 1], [1, 1]],
     1: [[1, 1], [1, 1]],
     2: [[1, 1], [1, 1]],
-    3: [[1, 1], [1, 1]]
+    3: [[1, 1], [1, 1]],
+    4: [2, 2, 2, 2]
 
 };
 
@@ -17,28 +19,32 @@ const T = {
     0: [[1], [1, 1], [1]],
     1: [[0, 1], [1, 1, 1]],
     2: [[0, 1], [1, 1], [0, 1]],
-    3: [[1, 1, 1], [0, 1]]
+    3: [[1, 1, 1], [0, 1]],
+    4: [2, 3, 2, 3]
 };
 
 const S = {
     0: [[1, 1], [0, 1, 1]],
     1: [[0, 1], [1, 1], [1]],
     2: [[1, 1], [0, 1, 1]],
-    3: [[0, 1], [1, 1], [1]]
+    3: [[0, 1], [1, 1], [1]],
+    4: [3, 2, 3, 2]
 };
 
 const Z = {
     0: [[0, 1, 1], [1, 1]],
     1: [[1], [1, 1], [0, 1]],
     2: [[0, 1, 1], [1, 1]],
-    3: [[1], [1, 1], [0, 1]]
+    3: [[1], [1, 1], [0, 1]],
+    4: [3, 2, 3, 2]
 };
 
 const J = {
     0: [[1, 1, 1], [0, 0, 1]],
     1: [[1, 1], [1], [1]],
     2: [[1], [1, 1, 1]],
-    3: [[0, 1], [0, 1], [1, 1]]
+    3: [[0, 1], [0, 1], [1, 1]],
+    4: [3, 2, 3, 2]
 };
 
 export const L = {
@@ -49,12 +55,12 @@ export const L = {
     4: [3, 2, 3, 2]
 };
 
-const BlocksArray = [I, O, T, S, Z, J, L];
+export const BlocksArray = [I, O, T, S, Z, J, L];
 
-const ColorsArray = ['red', 'blue', 'yellow', 'green'];
+export const ColorsArray = ['red', 'blue', 'yellow', 'green'];
 
-const startGame = (blocks: [{ 0, 1, 2, 3 }], colors: string[]) => {
-    const pickBlock: { 0, 1, 2, 3 } = blocks[Math.floor(Math.random() * blocks.length)];
-    const pickColor: string = colors[(Math.floor(Math.random() * colors.length))];
+const startGame = () => {
+    const pickBlock: { 0, 1, 2, 3 } = BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
+    const pickColor: string = ColorsArray[(Math.floor(Math.random() * ColorsArray.length))];
 
 };
