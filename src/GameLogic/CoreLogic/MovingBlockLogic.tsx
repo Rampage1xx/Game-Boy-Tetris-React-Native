@@ -1,4 +1,13 @@
-import { cloneDeep, fill } from 'lodash'
+import {List, Map} from 'immutable';
+import { cloneDeep, fill } from 'lodash';
+import {store} from '../../Store/Reducers';
+
+export const pickBlockFromQueue = () => {
+  const block  =  (store.getState()as Map<string, List<any>>)
+      .get('queuedBlocks')
+      .get(1);
+
+};
 
 export const changeGridStatus: IChangeGridStatus = (parameters): IChangeGridStatusResult | ILockedParameters => {
     const {dataGridState, block, blockPositionVertical, blockPositionHorizontal, lockedBlocks} = parameters;
@@ -55,7 +64,7 @@ export const changeGridStatus: IChangeGridStatus = (parameters): IChangeGridStat
                 }
             };
         }
-    }catch(error) {
+    }catch( error) {
         throw error
-    }
+ ;   }
 };

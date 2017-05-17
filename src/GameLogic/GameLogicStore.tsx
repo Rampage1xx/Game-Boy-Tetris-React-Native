@@ -1,6 +1,6 @@
 import {List, Map} from 'immutable';
-import {REMOVE_QUEUE_PIECE, RENDER_GRID, STATIC_BLOCKS, UPDATE_QUEUE} from '../Actions';
-import {makeDataGrid} from './Grid';
+import {REMOVE_QUEUE_PIECE, RENDER_GRID, STATIC_BLOCKS, UPDATE_QUEUE} from './Actions';
+import {makeDataGrid} from './CoreLogic/Grid';
 
 const GameLogicDefaultState = Map({
     dataGridState: makeDataGrid(),

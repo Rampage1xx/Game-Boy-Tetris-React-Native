@@ -24,6 +24,4 @@ export const generateBlocksQueue = () => {
 
 };
 
-const changeGrid: IChangeGridStatus = (parameters) => {
-    const {dataGridState, block, blockPositionVertical, blockPositionHorizontal} = parameters;
-};
+

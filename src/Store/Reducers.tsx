@@ -4,7 +4,7 @@ import {combineReducers} from 'redux-immutable';
 import createSagaMiddleware from 'redux-saga';
 import {routerMiddleware, routerReducer} from 'react-router-redux';
 import {sagaRoot} from './SagaRoot';
-import {GameLogicStore} from '../GameLogic/Utils/GameLogicStore';
+import {GameLogicStore} from '../GameLogic/GameLogicStore';
 
 declare const window: any;
 // debug for redux

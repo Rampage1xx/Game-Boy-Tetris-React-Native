@@ -2,13 +2,13 @@ import {View} from 'react-native';
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import { makeDataGrid} from '../Utils/Grid';
-import {L} from '../Utils/Blocks';
+import { makeDataGrid} from '../CoreLogic/Grid';
+import {L} from '../CoreLogic/Blocks';
 import {createGrid} from '../../Components/GameScreen/Cells';
 import {store} from '../../Store/Reducers';
 import {cloneDeep} from 'lodash';
 import {actionMovingBlock, actionRenderGrid} from '../Actions';
-import {changeGridStatus} from '../Utils/MovingBlockLogic';
+import {changeGridStatus} from '../CoreLogic/MovingBlockLogic';
 
 const getGridState = () => (store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState');
 let baseDataGrid: number[][];
