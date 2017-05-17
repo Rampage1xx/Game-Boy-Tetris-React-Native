@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {createGrid} from '../../GameLogic/Grid';
+import {createGrid} from './Cells';
 
 const GameScreenBoxStyled = styled.View`
             margin-top: 10%;

@@ -2,13 +2,16 @@ import {View} from 'react-native';
 import * as React from 'react';
 import {shallow} from 'enzyme';
 
-import {changeGridStatus, makeDataGrid} from './Grid';
-import {L} from './Blocks';
-import {createGrid} from '../Components/GameScreen/Cells';
-import {store} from '../Store/Reducers';
-import {actionMovingBlock, actionRenderGrid} from './Actions';
+import { makeDataGrid} from '../Utils/Grid';
+import {L} from '../Utils/Blocks';
+import {createGrid} from '../../Components/GameScreen/Cells';
+import {store} from '../../Store/Reducers';
+import {cloneDeep} from 'lodash';
+import {actionMovingBlock, actionRenderGrid} from '../Actions';
+import {changeGridStatus} from '../Utils/MovingBlockLogic';
 
-let baseDataGrid;
+const getGridState = () => (store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState');
+let baseDataGrid: number[][];
 let parameters: IChangeGridStatusParameters;
 beforeEach(() => {
     baseDataGrid = [
@@ -33,7 +36,8 @@ beforeEach(() => {
         dataGridState: baseDataGrid,
         blockPositionHorizontal: 7,
         blockPositionVertical: 5,
-        block: L[0]
+        block: L[0],
+        lockedBlocks: baseDataGrid
     };
 });
 const expectedDataWithBlock = {
@@ -70,6 +74,12 @@ describe('testing logic functions', () => {
         expect(gridData).toEqual(baseDataGrid);
     });
 
+    it('should fill a row', () => {
+        const temporaryGrid = cloneDeep(baseDataGrid);
+        temporaryGrid[15].fill(1, 0, 2);
+        // expect(temporaryGrid).toEqual(baseDataGrid);
+    });
+
     it('should modify the blank data grid', () => {
 
         const result = changeGridStatus(parameters);
@@ -84,17 +94,17 @@ describe('testing logic functions', () => {
             dataGridState: baseDataGrid,
             blockPositionHorizontal: 9,
             blockPositionVertical: 5,
-            block: L[0]
+            block: L[0],
+            lockedBlocks: baseDataGrid
         };
 
         expect(() => changeGridStatus(parameters2)).toThrow();
     });
 
     it('should update the store', () => {
-        const storeResults = store.dispatch(actionRenderGrid(expectedDataWithBlock.dataGridState));
-        expect((store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState'))
+        store.dispatch(actionRenderGrid(expectedDataWithBlock.dataGridState));
+        expect(getGridState())
             .toEqual(expectedDataWithBlock.dataGridState);
-
     });
 
     it('should move a step forward the block', () => {
@@ -102,11 +112,13 @@ describe('testing logic functions', () => {
         const sagaParameters = {
             block: L[0],
             dataGridState: baseDataGrid,
-            blockPositionVertical: 5,
+            blockPositionVertical: 12,
             type: '',
-            blockPositionHorizontal: 15
+            blockPositionHorizontal: 5,
+            lockedBlocks: baseDataGrid
         };
         store.dispatch(actionMovingBlock(sagaParameters));
+
     });
 
 });

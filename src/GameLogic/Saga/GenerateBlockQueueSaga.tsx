@@ -1,6 +1,6 @@
 import {put, takeLatest} from 'redux-saga/effects';
-import {actionUpdateQueue, GENERATE_QUEUE} from './Actions';
-import {generateBlocksQueue} from './Grid';
+import {actionUpdateQueue, GENERATE_QUEUE} from '../Actions';
+import {generateBlocksQueue} from '../Utils/Grid';
 
 function* generateQueueWorker({blocksToMake, type}) {
     const blocksToAdd: any[] = [];

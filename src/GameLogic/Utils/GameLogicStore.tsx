@@ -1,10 +1,11 @@
 import {List, Map} from 'immutable';
-import {REMOVE_QUEUE_PIECE, RENDER_GRID, UPDATE_QUEUE} from './Actions';
+import {REMOVE_QUEUE_PIECE, RENDER_GRID, STATIC_BLOCKS, UPDATE_QUEUE} from '../Actions';
 import {makeDataGrid} from './Grid';
 
 const GameLogicDefaultState = Map({
     dataGridState: makeDataGrid(),
-    queuedBlocks: List([])
+    queuedBlocks: List([]),
+    staticBlocksGrid: makeDataGrid()
 });
 
 export const GameLogicStore = (state = GameLogicDefaultState, action?) => {
@@ -13,6 +14,9 @@ export const GameLogicStore = (state = GameLogicDefaultState, action?) => {
 
             case RENDER_GRID:
                 return state.set('dataGridState', action.dataGridState);
+
+            case STATIC_BLOCKS:
+                return state.set('staticBlocksGrid', action.staticBlocksGrid)
             case UPDATE_QUEUE:
                 return state
                     .update('queuedBlocks', ((list: List<any>) =>
