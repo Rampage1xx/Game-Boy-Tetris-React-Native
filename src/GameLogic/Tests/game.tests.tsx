@@ -1,14 +1,14 @@
-import {View} from 'react-native';
-import * as React from 'react';
 import {shallow} from 'enzyme';
-
-import { makeDataGrid} from '../CoreLogic/Grid';
-import {L} from '../CoreLogic/Blocks';
+import {Map} from 'immutable';
+import {cloneDeep} from 'lodash';
+import * as React from 'react';
+import {View} from 'react-native';
 import {createGrid} from '../../Components/GameScreen/Cells';
 import {store} from '../../Store/Reducers';
-import {cloneDeep} from 'lodash';
 import {actionMovingBlock, actionRenderGrid} from '../Actions';
-import {changeGridStatus} from '../CoreLogic/MovingBlockLogic';
+import {L} from '../CoreLogic/Blocks';
+import {makeDataGrid} from '../CoreLogic/Grid';
+import {changeGridStatusTry} from '../CoreLogic/BlockMovement';
 
 const getGridState = () => (store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState');
 let baseDataGrid: number[][];
@@ -82,23 +82,11 @@ describe('testing logic functions', () => {
 
     it('should modify the blank data grid', () => {
 
-        const result = changeGridStatus(parameters);
-        expect(result.data.dataGridState).toEqual(expectedDataWithBlock.dataGridState);
 
     });
 
     it('should not allow an illegal movement', () => {
-        // const expectedData = expectedDataWithBlock;
-        // expectedData.completed = false;
-        const parameters2: IChangeGridStatusParameters = {
-            dataGridState: baseDataGrid,
-            blockPositionHorizontal: 9,
-            blockPositionVertical: 5,
-            block: L[0],
-            lockedBlocks: baseDataGrid
-        };
 
-        expect(() => changeGridStatus(parameters2)).toThrow();
     });
 
     it('should update the store', () => {
@@ -107,18 +95,23 @@ describe('testing logic functions', () => {
             .toEqual(expectedDataWithBlock.dataGridState);
     });
 
-    it('should move a step forward the block', () => {
 
-        const sagaParameters = {
+
+    it('should move a block', () => {
+        const dataToSend = {
             block: L[0],
             dataGridState: baseDataGrid,
-            blockPositionVertical: 12,
+            blockPositionVertical: 1,
             type: '',
             blockPositionHorizontal: 5,
-            lockedBlocks: baseDataGrid
+            lockedBlocks: baseDataGrid,
+            downKey: false
         };
-        store.dispatch(actionMovingBlock(sagaParameters));
-
-    });
+        store.dispatch(actionMovingBlock(dataToSend));
+        const result = changeGridStatusTry({downKey: false, vertical: 0, locked: false, horizontal: 0 });
+        store.dispatch(actionMovingBlock(result.data));
+        const storeRes = (store.getState() as Map<string, Map<string, any>>).getIn(['GameLogicReducer', 'gridBlockData', 'data']);
+        console.log(storeRes)
+    })
 
 });
