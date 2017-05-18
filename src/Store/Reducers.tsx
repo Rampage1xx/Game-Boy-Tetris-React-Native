@@ -1,10 +1,10 @@
 import createHistory from 'history/createMemoryHistory';
+import {routerMiddleware, routerReducer} from 'react-router-redux';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {combineReducers} from 'redux-immutable';
 import createSagaMiddleware from 'redux-saga';
-import {routerMiddleware, routerReducer} from 'react-router-redux';
-import {sagaRoot} from './SagaRoot';
 import {GameLogicReducer} from '../GameLogic/GameLogicReducer';
+import {sagaRoot} from './SagaRoot';
 
 declare const window: any;
 // debug for redux

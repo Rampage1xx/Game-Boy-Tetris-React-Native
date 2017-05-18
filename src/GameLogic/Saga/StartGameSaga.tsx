@@ -6,14 +6,14 @@ import {makeDataGrid} from '../CoreLogic/Grid';
 function* startGameWorker() {
     // generate queue
     yield put(actionGenerateQueue(4));
-    // generate grid
-    const grid = yield call(makeDataGrid);
 
+    // generate grid
+    yield call(makeDataGrid);
+    // put the block in game
     yield call(newBlockInGame);
 }
 
 export function* startGameSaga() {
-
     yield takeLatest(START, startGameWorker);
 
 }

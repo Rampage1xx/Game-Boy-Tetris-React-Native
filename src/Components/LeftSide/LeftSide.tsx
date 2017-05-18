@@ -1,7 +1,7 @@
 import * as React from 'react';
+import {Animated} from 'react-native';
 import styled from 'styled-components/native';
 import {DigitalPad} from '../DigitalPad/DigitalPad';
-import {Animated, View} from 'react-native';
 import Text = Animated.Text;
 
 const LeftSideBox = styled.View`
@@ -19,5 +19,5 @@ export const LeftSide = (props) => {
             <Text> Native Boy </Text>
             <DigitalPad/>
         </ LeftSideBox>
-    )
-}
+    );
+};

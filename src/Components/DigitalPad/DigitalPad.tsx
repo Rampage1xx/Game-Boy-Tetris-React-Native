@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import {Rows} from './Rows';
 import {CenterRow} from './Center';
+import {Rows} from './Rows';
 
 const DigitalPadBox = styled.View`
         width: 70%;

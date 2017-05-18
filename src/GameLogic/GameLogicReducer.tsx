@@ -1,18 +1,12 @@
 import {List, Map} from 'immutable';
-import {
-    CURRENT_BLOCK,
-    MOVING_BLOCK,
-    REMOVE_QUEUE_PIECE,
-    RENDER_GRID,
-    UPDATE_QUEUE
-} from './Actions';
+import {CURRENT_BLOCK, MOVING_BLOCK, REMOVE_QUEUE_PIECE, RENDER_GRID, UPDATE_QUEUE} from './Actions';
 import {makeDataGrid} from './CoreLogic/Grid';
 
 declare type IGameLogicDefaultState = Map<string, any[] | List<any> | Map<string, any[] | Map<string, {}>>>;
 
 const GameLogicDefaultState: IGameLogicDefaultState = Map({
     dataGridState: makeDataGrid(),
-     queuedBlocks: List([]),
+    queuedBlocks: List([]),
     //  staticBlocksGrid: makeDataGrid(),
     gridBlockData: Map({
         blockCombinations: [],
@@ -22,7 +16,8 @@ const GameLogicDefaultState: IGameLogicDefaultState = Map({
 });
 
 export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLogicActions) => {
-    // console.log(action.type, state.get('queuedBlocks'), action)
+    console.log(action.type);
+
     switch (action.type) {
 
         case RENDER_GRID:
@@ -49,5 +44,4 @@ export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLo
     }
 
 };
-
 

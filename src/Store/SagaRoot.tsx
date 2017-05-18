@@ -1,14 +1,16 @@
 import {Task} from 'redux-saga';
 import {cancel, fork, take} from 'redux-saga/effects';
-import {START, TURN_OFF} from '../GameLogic/Actions';
+import {ON, TURN_OFF} from '../GameLogic/Actions';
 import {blockMovementSaga} from '../GameLogic/Saga/BlockMovementSaga';
+import {generateBlockQueueSaga} from '../GameLogic/Saga/GenerateBlockQueueSaga';
 import {startGameSaga} from '../GameLogic/Saga/StartGameSaga';
 
 export function* sagaRoot() {
-    while (yield take(START)) {
+    while (yield take(ON)) {
         const delegate: Task[] = yield [
             fork(startGameSaga),
-            fork(blockMovementSaga)
+            fork(blockMovementSaga),
+            fork(generateBlockQueueSaga)
         ];
 
         yield take(TURN_OFF);

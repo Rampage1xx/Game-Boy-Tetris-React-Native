@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {createGrid} from './Cells';
 
@@ -13,8 +12,6 @@ const GameScreenBoxStyled = styled.View`
      border-bottom-right-radius: 50;
 
 `;
-
-
 
 export class GameScreen extends React.Component<any, any> {
     private grid: any[];

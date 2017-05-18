@@ -12,7 +12,6 @@ export const GameBoyBox = styled.View`
      border-bottom-right-radius: 50;
 `;
 
-
 export class GameBoy extends React.Component<any, any> {
 
     public render() {

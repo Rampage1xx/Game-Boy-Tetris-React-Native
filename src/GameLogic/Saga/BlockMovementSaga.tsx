@@ -1,18 +1,25 @@
 import {Animated} from 'react-native';
-import {call, take, takeLatest} from 'redux-saga/effects';
-import {changeGridStatusTry} from '../CoreLogic/BlockMovement';
+import {call, put, take, takeLatest} from 'redux-saga/effects';
+import {actionActiveBlock, actionRenderGrid, ACTIVE_BLOCK, START} from '../Actions';
+import {changeGridStatus} from '../CoreLogic/BlockMovement';
+import {newBlockInGame} from '../CoreLogic/GenerateBlocks';
 import delay = Animated.delay;
 
-function* blockMovementWorker() {
+function* blockMovementWorker({type}) {
     while (true) {
-        yield take('BLOCK_ACTIVE');
-        yield delay(1000);
-        const result = yield call(changeGridStatusTry({horizontal: 1, vertical: 0, locked: false, downKey: false}));
-        if(result.locked){
-            // new block
+        yield take(ACTIVE_BLOCK);
 
-        }else{
+        yield delay(1000);
+        const parameters = {horizontal: 1, vertical: 0, locked: false, downKey: false};
+        const result = yield call(changeGridStatus, parameters);
+        if (result.locked) {
+            // new block
+            yield put(actionRenderGrid(result.data.dataGridState));
+            yield call(newBlockInGame);
+        } else {
             // keep going
+            yield put(actionRenderGrid(result.data.dataGridState));
+            yield put(actionActiveBlock());
         }
     }
 }
@@ -30,10 +37,9 @@ function* blockDownWorker({type}) {
 }
 
 export function* blockMovementSaga() {
-    yield [
-        takeLatest('BLOCK_DIRECTION', changeDirectionWorker),
-        takeLatest('BLOCK_ROTATION', blockRotationWorker),
-        takeLatest('BLOCK_DOWN', blockDownWorker),
-        takeLatest('*', blockMovementWorker)
-    ];
+    yield takeLatest(START, blockMovementWorker);
+
 }
+/*      takeLatest('BLOCK_DIRECTION', changeDirectionWorker),
+ takeLatest('BLOCK_ROTATION', blockRotationWorker),
+ takeLatest('BLOCK_DOWN', blockDownWorker),*/

@@ -12,10 +12,11 @@ export const REMOVE_QUEUE_PIECE = 'REMOVE_QUEUE_PIECE';
 export const STATIC_BLOCKS = 'STATIC_BLOCKS';
 export const UPDATE_CURRENT_BLOCK = 'UPDATE_CURRENT_BLOCK';
 export const CURRENT_BLOCK = 'CURRENT_BLOCK';
+export const ACTIVE_BLOCK = 'ACTIVE_BLOCK';
+export const ON = 'ON';
 
-
-export const startAction = () => ({type: START});
-
+export const actionStart = () => ({type: START});
+export const actionON = () => ({type: ON});
 export const actionMovingBlock = (parameters: IActionMovingBlockReturnGrid): IEncapusaledActionMovingBlock => {
     const {
         block, dataGridState, blockPositionVertical,
@@ -24,19 +25,19 @@ export const actionMovingBlock = (parameters: IActionMovingBlockReturnGrid): IEn
 
     return {
         type: MOVING_BLOCK,
-            data: {
-                block,
-                dataGridState,
-                blockPositionVertical,
-                blockPositionHorizontal,
-                lockedBlocks,
-                downKey
-            }
+        data: {
+            block,
+            dataGridState,
+            blockPositionVertical,
+            blockPositionHorizontal,
+            lockedBlocks,
+            downKey
+        }
 
     };
 };
 
-export const actionGenerateQueue = (blocksToMake: number) => ({type: GENERATE_QUEUE, blocksToMake})
+export const actionGenerateQueue = (blocksToMake: number) => ({type: GENERATE_QUEUE, blocksToMake});
 
 export const actionRenderGrid = (dataGridState) => ({type: RENDER_GRID, dataGridState});
 
@@ -48,9 +49,10 @@ export const actionRemoveQueuePiece = (blockToRemove: number) => ({type: REMOVE_
 
 export const actionUpdateQueue = (blockToAdd) => ({type: UPDATE_QUEUE, blockToAdd});
 
-
 export const actionDownKey = () => ({type: DOWN_KEY});
 
 export const actionLeftKey = () => ({type: LEFT_KEY});
 
 export const actionRightKey = () => ({type: RIGHT_KEY});
+
+export const actionActiveBlock = () => ({type: ACTIVE_BLOCK});
