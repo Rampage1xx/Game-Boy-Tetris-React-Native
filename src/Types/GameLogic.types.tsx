@@ -1,6 +1,3 @@
-interface IChangeGridStatus {
-    (parameter: IChangeGridStatusParameters);
-}
 
 interface IChangeGridStatusParameters {
 
@@ -25,17 +22,7 @@ interface IEncapusaledActionMovingBlock {
     type: string;
 }
 
-interface ILockedParameters {
-    data: { dataGridState: number[][] };
-    locked: boolean;
-}
 
-interface IChangeGridStatusResult {
-
-    completed?: boolean;
-    locked?: boolean;
-    data: IChangeGridStatusParameters;
-}
 
 interface IGameLogicActions {
     type: string;
@@ -43,22 +30,12 @@ interface IGameLogicActions {
     staticBlocksGrid: any;
     dataGridState: any;
     blockToAdd: any;
-    blocksToRemove: number;
+    blockToRemove: number;
     data: IActionMovingBlockReturnGrid;
+    block: number[][];
 }
 
 
-interface IGameLogicNewStore {
-    data: {
-        block: number [][],
-        dataGridState: number [][],
-        blockPositionVertical: number ,
-        blockPositionHorizontal: number,
-        lockedBlocks: number [][],
-        downKey: boolean
-    };
-    renderedGrid: number [][];
-}
 
 interface IChangeGameGridNew {
     (parameter:{vertical: number, horizontal: number, locked: boolean, downKey: boolean})

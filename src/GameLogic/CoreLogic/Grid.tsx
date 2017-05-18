@@ -1,7 +1,5 @@
-import {cloneDeep, fill} from 'lodash';
 import * as React from 'react';
 import 'react-native';
-import {BlocksArray} from './Blocks';
 
 export const makeDataGrid = () => {
     const horizontalSquares = 10;
@@ -19,9 +17,5 @@ export const makeDataGrid = () => {
     return temporaryGrid;
 };
 
-export const generateBlocksQueue = () => {
-    return BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
-
-};
 
 

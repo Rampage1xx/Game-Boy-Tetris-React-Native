@@ -11,8 +11,8 @@ export const UPDATE_QUEUE = 'UPDATE_QUEUE';
 export const REMOVE_QUEUE_PIECE = 'REMOVE_QUEUE_PIECE';
 export const STATIC_BLOCKS = 'STATIC_BLOCKS';
 export const UPDATE_CURRENT_BLOCK = 'UPDATE_CURRENT_BLOCK';
+export const CURRENT_BLOCK = 'CURRENT_BLOCK';
 
-export const actionUpdateCurrentBlock = (currentBlock) => ({type: UPDATE_CURRENT_BLOCK, currentBlock});
 
 export const startAction = () => ({type: START});
 
@@ -36,15 +36,18 @@ export const actionMovingBlock = (parameters: IActionMovingBlockReturnGrid): IEn
     };
 };
 
-export const actionStaticBlocks = (staticBlocksGrid) => ({type: STATIC_BLOCKS, staticBlocksGrid});
+export const actionGenerateQueue = (blocksToMake: number) => ({type: GENERATE_QUEUE, blocksToMake})
 
 export const actionRenderGrid = (dataGridState) => ({type: RENDER_GRID, dataGridState});
 
 export const actionNextBlock = () => ({type: NEXT_BLOCK});
 
-export const actionRemoveQueuePiece = (blocksToRemove: number) => ({type: REMOVE_QUEUE_PIECE, blocksToRemove});
+export const actionCurrentBlock = (block) => ({type: CURRENT_BLOCK, block});
+
+export const actionRemoveQueuePiece = (blockToRemove: number) => ({type: REMOVE_QUEUE_PIECE, blockToRemove});
 
 export const actionUpdateQueue = (blockToAdd) => ({type: UPDATE_QUEUE, blockToAdd});
+
 
 export const actionDownKey = () => ({type: DOWN_KEY});
 

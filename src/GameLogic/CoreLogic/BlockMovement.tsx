@@ -1,25 +1,12 @@
 import {Map} from 'immutable';
 import {cloneDeep, fill} from 'lodash';
 import {store} from '../../Store/Reducers';
-import {actionUpdateQueue} from '../Actions';
+import {actionCurrentBlock, actionRemoveQueuePiece, actionUpdateQueue} from '../Actions';
 import {BlocksArray} from './Blocks';
 
 const storeGetState = () => (store.getState() as Map<string, Map<string, any>>);
 
-export const generateQueue = (index: number) => {
-    for (let i = 0; i < index; i++) {
-        const pickBlock: object = BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
 
-        store.dispatch(actionUpdateQueue(pickBlock));
-    }
-
-};
-
-const createParameters = () => {
-    const gridBlockState = (store.getState() as Map<string, Map<string, any>>)
-        .get('gridBlockData');
-
-};
 
 export const changeGridStatusTry: IChangeGameGridNew = ({vertical = 0, horizontal = 0, locked, downKey}): IReturnTypeGridChange => {
     const storeStatus: IActionMovingBlockReturnGrid = storeGetState().getIn(['GameLogicReducer', 'gridBlockData', 'data']);

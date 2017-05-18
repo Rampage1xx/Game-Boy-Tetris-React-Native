@@ -58,9 +58,3 @@ export const L = {
 export const BlocksArray = [I, O, T, S, Z, J, L];
 
 export const ColorsArray = ['red', 'blue', 'yellow', 'green'];
-
-const startGame = () => {
-    const pickBlock = BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
-    const pickColor: string = ColorsArray[(Math.floor(Math.random() * ColorsArray.length))];
-
-};

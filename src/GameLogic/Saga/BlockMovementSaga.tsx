@@ -10,6 +10,7 @@ function* blockMovementWorker() {
         const result = yield call(changeGridStatusTry({horizontal: 1, vertical: 0, locked: false, downKey: false}));
         if(result.locked){
             // new block
+
         }else{
             // keep going
         }

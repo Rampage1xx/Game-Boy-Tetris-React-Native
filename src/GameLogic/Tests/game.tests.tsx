@@ -1,14 +1,14 @@
 import {shallow} from 'enzyme';
-import {Map} from 'immutable';
+import {List, Map} from 'immutable';
 import {cloneDeep} from 'lodash';
 import * as React from 'react';
 import {View} from 'react-native';
 import {createGrid} from '../../Components/GameScreen/Cells';
 import {store} from '../../Store/Reducers';
-import {actionMovingBlock, actionRenderGrid} from '../Actions';
+import {actionRenderGrid} from '../Actions';
 import {L} from '../CoreLogic/Blocks';
+import {storeGetState, generateBlocksQueue} from '../CoreLogic/GenerateBlocks';
 import {makeDataGrid} from '../CoreLogic/Grid';
-import {changeGridStatusTry} from '../CoreLogic/BlockMovement';
 
 const getGridState = () => (store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState');
 let baseDataGrid: number[][];
@@ -80,8 +80,14 @@ describe('testing logic functions', () => {
         // expect(temporaryGrid).toEqual(baseDataGrid);
     });
 
-    it('should modify the blank data grid', () => {
+    it('should pick a block', () => {
+        generateBlocksQueue(4);
+        const blocks: List<any> = storeGetState().getIn(['GameLogicReducer', 'queuedBlocks']);
+        console.log(blocks.get(0), 'single block');
 
+    });
+
+    it('should modify the blank data grid', () => {
 
     });
 
@@ -95,23 +101,23 @@ describe('testing logic functions', () => {
             .toEqual(expectedDataWithBlock.dataGridState);
     });
 
+    /*
 
-
-    it('should move a block', () => {
-        const dataToSend = {
-            block: L[0],
-            dataGridState: baseDataGrid,
-            blockPositionVertical: 1,
-            type: '',
-            blockPositionHorizontal: 5,
-            lockedBlocks: baseDataGrid,
-            downKey: false
-        };
-        store.dispatch(actionMovingBlock(dataToSend));
-        const result = changeGridStatusTry({downKey: false, vertical: 0, locked: false, horizontal: 0 });
-        store.dispatch(actionMovingBlock(result.data));
-        const storeRes = (store.getState() as Map<string, Map<string, any>>).getIn(['GameLogicReducer', 'gridBlockData', 'data']);
-        console.log(storeRes)
-    })
+     it('should move a block', () => {
+     const dataToSend = {
+     block: L[0],
+     dataGridState: baseDataGrid,
+     blockPositionVertical: 1,
+     type: '',
+     blockPositionHorizontal: 5,
+     lockedBlocks: baseDataGrid,
+     downKey: false
+     };
+     store.dispatch(actionMovingBlock(dataToSend));
+     const result = changeGridStatusTry({downKey: false, vertical: 0, locked: false, horizontal: 0 });
+     store.dispatch(actionMovingBlock(result.data));
+     const storeRes = (store.getState() as Map<string, Map<string, any>>).getIn(['GameLogicReducer', 'gridBlockData', 'data']);
+     })
+     */
 
 });

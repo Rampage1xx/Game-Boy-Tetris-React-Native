@@ -1,15 +1,15 @@
-import {put, takeLatest} from 'redux-saga/effects';
-import {actionUpdateQueue, GENERATE_QUEUE} from '../Actions';
-import {generateBlocksQueue} from '../CoreLogic/Grid';
+import {call, put, takeLatest} from 'redux-saga/effects';
+import {CURRENT_BLOCK, GENERATE_QUEUE} from '../Actions';
+import {generateBlocksQueue} from '../CoreLogic/GenerateBlocks';
 
 function* generateQueueWorker({blocksToMake, type}) {
-    const blocksToAdd: any[] = [];
-    for (let i = 0; i < blocksToMake; i++) {
-        blocksToAdd.push(generateBlocksQueue());
-    }
-    yield put(actionUpdateQueue(blocksToAdd));
+    yield call(generateBlocksQueue, blocksToMake);
 }
 
-export function* generateBlockQueue() {
-    takeLatest(GENERATE_QUEUE, generateQueueWorker);
+
+
+export function* generateBlockQueueSaga() {
+    yield [
+        takeLatest(GENERATE_QUEUE, generateQueueWorker),
+    ];
 }
