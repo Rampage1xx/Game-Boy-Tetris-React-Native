@@ -1,7 +1,7 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {actionGenerateQueue, START} from '../Actions';
 import {newBlockInGame} from '../CoreLogic/GenerateBlocks';
-import {makeDataGrid} from '../CoreLogic/Grid';
+import {makeDataGrid} from '../CoreLogic/MakeDataGrid';
 
 function* startGameWorker() {
     // generate queue
@@ -14,6 +14,7 @@ function* startGameWorker() {
 }
 
 export function* startGameSaga() {
+
     yield takeLatest(START, startGameWorker);
 
 }

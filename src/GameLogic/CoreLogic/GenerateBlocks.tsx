@@ -3,6 +3,7 @@ import {store} from '../../Store/Reducers';
 import {
     actionActiveBlock,
     actionCurrentBlock,
+    actionGenerateQueue,
     actionMovingBlock,
     actionRemoveQueuePiece,
     actionUpdateQueue
@@ -23,17 +24,18 @@ export const generateBlocksQueue = (index: number) => {
 
 export const newBlockInGame = () => {
     const blocks: List<any> = storeGetState().getIn(['GameLogicReducer', 'queuedBlocks']);
+
     const block: IBlock = blocks.get(0);
     const grid = storeGetState().getIn(['GameLogicReducer', 'dataGridState']);
     store.dispatch(actionCurrentBlock(block));
     store.dispatch(actionRemoveQueuePiece(0));
-    // need to implement random pick block
+    store.dispatch(actionGenerateQueue(1));
 
     store.dispatch(actionMovingBlock({
         block: block[0],
         downKey: false,
         dataGridState: grid,
-        blockPositionVertical: 0,
+        blockPositionVertical: -1,
         lockedBlocks: grid,
         blockPositionHorizontal: 5
 

@@ -47,7 +47,7 @@ export const actionCurrentBlock = (block) => ({type: CURRENT_BLOCK, block});
 
 export const actionRemoveQueuePiece = (blockToRemove: number) => ({type: REMOVE_QUEUE_PIECE, blockToRemove});
 
-export const actionUpdateQueue = (blockToAdd) => ({type: UPDATE_QUEUE, blockToAdd});
+export const actionUpdateQueue = (blockToAdd: {}) => ({type: UPDATE_QUEUE, blockToAdd});
 
 export const actionDownKey = () => ({type: DOWN_KEY});
 

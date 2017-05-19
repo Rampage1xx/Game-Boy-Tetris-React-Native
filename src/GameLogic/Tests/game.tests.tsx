@@ -55,6 +55,7 @@ const expectedDataWithBlock = {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 };
+declare let window
 
 describe('testing logic functions', () => {
     /*
@@ -102,11 +103,12 @@ describe('testing logic functions', () => {
      */
 
     it('should start', async (done) => {
+        window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
         store.dispatch(actionON());
         store.dispatch(actionStart());
-        store.dispatch(actionStart());
-        await sleep(2000);
-        done();
+       // store.dispatch(actionStart());
+        await sleep(1000).then(r =>  done());
+
     });
 
 });

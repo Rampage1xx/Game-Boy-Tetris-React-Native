@@ -1,6 +1,6 @@
 import {List, Map} from 'immutable';
 import {CURRENT_BLOCK, MOVING_BLOCK, REMOVE_QUEUE_PIECE, RENDER_GRID, UPDATE_QUEUE} from './Actions';
-import {makeDataGrid} from './CoreLogic/Grid';
+import {makeDataGrid} from './CoreLogic/MakeDataGrid';
 
 declare type IGameLogicDefaultState = Map<string, any[] | List<any> | Map<string, any[] | Map<string, {}>>>;
 
@@ -16,8 +16,8 @@ const GameLogicDefaultState: IGameLogicDefaultState = Map({
 });
 
 export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLogicActions) => {
-    console.log(action.type);
-
+   // console.log(action.type, state.getIn(['gridBlockData', 'data']));
+   //  console.log(action.type, state.getIn(['gridBlockData', 'data']))
     switch (action.type) {
 
         case RENDER_GRID:
