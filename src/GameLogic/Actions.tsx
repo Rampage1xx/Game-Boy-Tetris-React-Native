@@ -11,6 +11,7 @@ export const ACTIVE_BLOCK = 'ACTIVE_BLOCK';
 export const ON = 'ON';
 export const HORIZONTAL_MOVEMENT = 'HORIZONTAL_MOVEMENT';
 export const GAME_OVER = 'GAME_OVER';
+export const ROTATE_BLOCK = 'ROTATE_BLOCK';
 
 export const actionStart = () => ({type: START});
 export const actionON = () => ({type: ON});
@@ -51,3 +52,5 @@ export const actionActiveBlock = () => ({type: ACTIVE_BLOCK});
 export const actionHorizontalMovement = (direction: number) => ({type: HORIZONTAL_MOVEMENT, direction});
 
 export const actionGameOver = (gameOver: boolean) => ({type: GAME_OVER, gameOver})
+
+export const actionRotateBlock = (rotatedBlock: number [][]) => ({type: ROTATE_BLOCK, rotatedBlock})

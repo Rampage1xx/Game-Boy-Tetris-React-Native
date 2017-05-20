@@ -4,10 +4,15 @@ import {
     actionActiveBlock, actionDownKey, actionGameOver, actionGenerateQueue, actionMovingBlock, actionRenderGrid,
     ACTIVE_BLOCK, DOWN_KEY, GENERATE_QUEUE, HORIZONTAL_MOVEMENT, START
 } from './Actions';
-import {changeGridStatus} from './CoreLogic/ChangeGridStatus';
-import {generateBlocksQueue, newBlockInGame} from './CoreLogic/GenerateBlocks';
+import {generateBlocksQueue, newBlockInGame, rotateBlock} from './CoreLogic/GenerateBlocks';
 import {makeDataGrid} from './CoreLogic/MakeDataGrid';
 import delay = Animated.delay;
+import {changeGridStatus} from './CoreLogic/GridLogic';
+
+
+function* rotateBlockWorker ({type, blockRotation}) {
+    const rotatedBlock = yield call(rotateBlock, blockRotation);
+}
 
 function* horizontalMovementWorker({type, direction}) {
     const parameters = {horizontal: direction, vertical: 1, locked: false, downKey: false};
@@ -16,6 +21,7 @@ function* horizontalMovementWorker({type, direction}) {
     yield put(actionRenderGrid(result.data.dataGridState));
     // caches the result
     yield put(actionMovingBlock(result.data));
+    // renders the result
 }
 
 function* startGameWorker() {

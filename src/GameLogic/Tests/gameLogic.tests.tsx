@@ -3,6 +3,7 @@ import * as React from 'react';
 import {store} from '../../Store/Reducers';
 import {actionON, actionStart} from '../Actions';
 import {L} from '../CoreLogic/BlocksAttributes';
+import {allZeroes} from '../CoreLogic/GridLogic';
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const getGameLogicState = (value: string) => (store.getState() as Map<string, any>)
@@ -108,6 +109,17 @@ describe('testing logic functions', () => {
         store.dispatch(actionStart());
         expect(getGameLogicState('gameOver')).toBe(true);
 
+    });
+
+    it('testing filter function', () => {
+        const collection = [0, 0, 0];
+        const collection2 = [1, 0, 1];
+
+        const result = collection.every(value => allZeroes(value));
+        const result2 = collection2.every(value => allZeroes(value));
+
+        expect(result).toBe(true);
+        expect(result2).toBe(false);
     });
 
 });

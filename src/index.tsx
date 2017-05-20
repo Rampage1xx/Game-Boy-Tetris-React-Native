@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Styled from 'styled-components/native';
 import {Navbar} from './Components/navbar/Navbar';
-import {GameBoy} from './Container/GameBoy/GameBoy';
+import {GameBoy, GameBoyContainer} from './Container/GameBoy/GameBoy';
 
 const IndexBox = Styled.View`
     width: 100%;
@@ -14,7 +14,7 @@ export class Index extends React.Component<any, any> {
         return (
             <IndexBox>
                 <Navbar />
-                <GameBoy/>
+                <GameBoyContainer/>
             </IndexBox>
         );
     }

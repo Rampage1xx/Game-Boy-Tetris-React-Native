@@ -11,6 +11,6 @@ export function* sagaRoot() {
 
         yield take(TURN_OFF);
 
-        yield delegate.map(watcher => cancel);
+        yield delegate.map(watcher => cancel(watcher));
     }
 }

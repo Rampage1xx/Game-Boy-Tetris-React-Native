@@ -1,5 +1,7 @@
 import {List, Map} from 'immutable';
-import {CURRENT_BLOCK, GAME_OVER, MOVING_BLOCK, REMOVE_QUEUE_PIECE, RENDER_GRID, UPDATE_QUEUE} from './Actions';
+import {
+    CURRENT_BLOCK, GAME_OVER, MOVING_BLOCK, REMOVE_QUEUE_PIECE, RENDER_GRID, ROTATE_BLOCK, UPDATE_QUEUE
+} from './Actions';
 import {makeDataGrid} from './CoreLogic/MakeDataGrid';
 
 declare type IGameLogicDefaultState = Map<string, boolean | any[] | List<any> | Map<string, any[] | Map<string, {}>>>;
@@ -43,6 +45,9 @@ export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLo
         case GAME_OVER:
             return state
                 .set('gameOver', action.gameOver);
+        case ROTATE_BLOCK:
+            return state
+                .setIn(['gridBlockData', 'data', 'block'], action.rotatedBlock)
         default:
             return state;
     }

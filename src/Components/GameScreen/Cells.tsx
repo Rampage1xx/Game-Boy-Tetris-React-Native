@@ -5,10 +5,10 @@ import {ViewProperties} from 'react-native';
 
 
 
-const SingleCellStyled = (styled.View as any)`
+export const SingleCellStyled = (styled.View as any)`
         height: 5%;
         width: 6.25%;
-        background-color: ${props => props.active ? 'dark' : ''}
+        background-color: ${props => props.active ? 'black' : ''}
 `;
 
 const CompleteRowStyled = styled.View`
@@ -25,8 +25,10 @@ export const createViewGrid = (grid: number[][]): any [] => {
         const horizontalSquares = grid[verticalIndex].length;
         for (let horizontalRowsMade = 0; horizontalRowsMade < horizontalSquares; horizontalRowsMade++) {
             // TODO: should generate the block color
-            const css = grid[verticalIndex][horizontalRowsMade] === 1 ? 'active' : ''
-            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade) }  />);
+
+            const active = grid[verticalIndex][horizontalRowsMade] === 1;
+
+            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade) } active={ active }  />);
             row.push(cell);
         }
         const CompleteRow = (

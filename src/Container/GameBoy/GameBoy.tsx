@@ -45,4 +45,5 @@ const mapStateToProps = (state, ownProps) => {
         grid: getStoreStatus('GameLogicReducer').get('dataGridState')
     };
 };
-const GameBoyContainer = connect(mapStateToProps, undefined)(GameBoy);
+
+export const GameBoyContainer = connect(mapStateToProps, undefined)(GameBoy);

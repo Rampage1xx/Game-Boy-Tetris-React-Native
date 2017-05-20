@@ -15,6 +15,7 @@
     "member-ordering": false,
     "no-increment-decrement":false,
     "no-backbone-get-set-outside-model": false,
-    "no-reserved-keywords": false
+    "no-reserved-keywords": false,
+    "no-unnecessary-callback-wrapper":false
   }
 }

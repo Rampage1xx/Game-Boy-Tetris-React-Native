@@ -55,3 +55,4 @@ fastlane/screenshots
 /src/GameLogic/mocks.tsx
 /src/GameLogic/Saga/deprecated.tsx
 /src/GameLogic/CoreLogic/Deprecated.tsx
+/src/GameLogic/CoreLogic/deprecated.tsx
