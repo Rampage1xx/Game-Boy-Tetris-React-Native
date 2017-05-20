@@ -6,18 +6,19 @@ const storeGetState = () => (store.getState() as Map<string, Map<string, any>>);
 
 export const allZeroes = (cell): boolean => cell === 0;
 
-const dataObjectFactory = (loopFinish?) =>
-    (locationChange?) =>
-        (dataParameters: IMakeDataParameter) => (
-            {
-                ...dataParameters,
-                ...locationChange,
-                ...loopFinish
-            });
+const dataObjectFactory =
+    (loopFinish?) =>
+        (locationChange?) =>
+            (dataParameters: IMakeDataParameter) => (
+                {
+                    ...dataParameters,
+                    ...locationChange,
+                    ...loopFinish
+                });
 
-export const changeGridStatus: IChangeGameGrid = (parameters, rotatedBlock?): IReturnTypeGridChange | IGridChangeGameOver => {
+export const changeGridStatus: IChangeGameGrid = (parameters): IReturnTypeGridChange | IGridChangeGameOver => {
     try {
-        const {vertical = 0, horizontal = 0, locked, downKey} = parameters;
+        const {vertical = 0, horizontal = 0, locked, downKey, rotatedBlock} = parameters;
         const storeStatus: IActionMovingBlockReturnGrid = storeGetState().getIn(['GameLogicReducer', 'gridBlockData', 'data']);
         const {dataGridState, block, blockPositionVertical, blockPositionHorizontal, lockedBlocks} = storeStatus;
 

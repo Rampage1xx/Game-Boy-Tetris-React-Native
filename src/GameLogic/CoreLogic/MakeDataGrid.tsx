@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const makeDataGrid = () => {
+export const makeDataGrid = (): any[][] => {
     const horizontalSquares = 10;
     const verticalSquares = 16;
     const temporaryGrid: any[] = [];

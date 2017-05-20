@@ -7,13 +7,17 @@ import {BlocksArray} from './BlocksAttributes';
 
 export const storeGetState = () => (store.getState() as Map<string, Map<string, any>>);
 
-export const rotateBlock = (position: number) => {
-    const blockObject: { 1: number[][], 2: number[][], 3: number[][], 4: number[] } = storeGetState().getIn(['GameLogicReducer', 'currentBlock']);
+export const rotateBlock = (position: number): number[][] => {
+    const error = 'incorrect number';
+    if (position >= 4) {
+        throw error;
+    }
+    const blockObject: IBlockObject = storeGetState().getIn(['GameLogicReducer', 'currentBlock']);
 
     return blockObject[position];
 };
 
-export const generateBlocksQueue = (index: number) => {
+export const generateBlocksQueue = (index: number): void => {
 
     for (let i = 0; i < index; i++) {
         const pickedBlock: object = BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
@@ -23,7 +27,7 @@ export const generateBlocksQueue = (index: number) => {
 
 };
 
-export const newBlockInGame = () => {
+export const newBlockInGame = (): void => {
     const blocks: List<any> = storeGetState().getIn(['GameLogicReducer', 'queuedBlocks']);
 
     const block: IBlock = blocks.get(0);

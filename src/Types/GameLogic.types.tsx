@@ -18,6 +18,7 @@ interface IReturnTypeGridChange {
     locked?: boolean;
     completed?: boolean;
     discard?: boolean;
+
 }
 
 interface IGridChangeGameOver {
@@ -43,7 +44,11 @@ interface IGameLogicActions {
 }
 
 interface IChangeGameGrid {
-    (parameter: { vertical: number, horizontal: number, locked: boolean, downKey: boolean }, rotatedBlock?: number [][]);
+    (parameter: {
+        vertical: number; horizontal: number;
+        locked: boolean; downKey: boolean;
+        rotatedBlock?: number[][];
+    });
 }
 
 interface IBlock {
@@ -55,6 +60,10 @@ interface IBlock {
 }
 interface IMakeDataParameter {
 
-     dataGridState, blockPositionVertical,
-        blockPositionHorizontal, block , lockedBlocks, downKey,
+    dataGridState, blockPositionVertical,
+    blockPositionHorizontal, block , lockedBlocks, downKey,
+}
+
+interface IBlockObject {
+ 1: number[][], 2: number[][], 3: number[][], 4: number[]
 }
