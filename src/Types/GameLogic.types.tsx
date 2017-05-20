@@ -9,12 +9,14 @@ interface IChangeGridStatusParameters extends ICommonParameters {
 
     lockedBlocks: number[][];
 }
-interface IActionMovingBlockReturnGrid extends IChangeGridStatusParameters {
+interface IDataObject extends IChangeGridStatusParameters {
     downKey: boolean;
+    blockColor: number;
+    blockLength: number;
 }
 
 interface IReturnTypeGridChange {
-    data: IActionMovingBlockReturnGrid;
+    data: IDataObject;
     locked?: boolean;
     completed?: boolean;
     discard?: boolean;
@@ -26,7 +28,7 @@ interface IGridChangeGameOver {
 }
 
 interface IEncapusaledActionMovingBlock {
-    data: IActionMovingBlockReturnGrid;
+    data: IDataObject;
     type: string;
 }
 
@@ -37,7 +39,7 @@ interface IGameLogicActions {
     dataGridState: any;
     blockToAdd: any;
     blockToRemove: number;
-    data: IActionMovingBlockReturnGrid;
+    data: IDataObject;
     block: number[][];
     gameOver: boolean;
     rotatedBlock: number[][];
@@ -56,7 +58,8 @@ interface IBlock {
     1: number[][];
     2: number[][];
     3: number[][];
-    4: number[][];
+    4: number[];
+    5: number;
 }
 interface IMakeDataParameter {
 
@@ -65,5 +68,5 @@ interface IMakeDataParameter {
 }
 
 interface IBlockObject {
- 1: number[][], 2: number[][], 3: number[][], 4: number[]
+    1: number[][], 2: number[][], 3: number[][], 4: number[]
 }

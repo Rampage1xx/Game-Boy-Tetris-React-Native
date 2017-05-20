@@ -29,7 +29,7 @@ describe('testing game screen rendering', () => {
 
     it('it should create the  view grid', () => {
         const ViewGrid = createViewGrid(dataGrid);
-        const shallowViewGrid = shallow(<div>{ViewGrid}</div>)
-       // console.log(shallowViewGrid.debug());
+        const shallowViewGrid = shallow(<div>{ViewGrid}</div>);
+        // console.log(shallowViewGrid.debug());
     });
 });

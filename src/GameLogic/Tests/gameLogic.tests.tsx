@@ -1,9 +1,9 @@
 import {Map} from 'immutable';
 import * as React from 'react';
 import {store} from '../../Store/Reducers';
-import {actionON, actionStart} from '../Actions';
-import {L} from '../CoreLogic/BlocksAttributes';
-import {allZeroes} from '../CoreLogic/GridLogic';
+import {actionMovingBlock, actionON, actionStart} from '../Actions';
+import {L, Z} from '../CoreLogic/BlocksAttributes';
+import {allZeroes, changeGridStatus} from '../CoreLogic/GridLogic';
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const getGameLogicState = (value: string) => (store.getState() as Map<string, any>)
@@ -111,7 +111,7 @@ describe('testing logic functions', () => {
 
     });
 
-    it('testing filter function', () => {
+    it('should apply the filtering function to the numbers', () => {
         const collection = [0, 0, 0];
         const collection2 = [1, 0, 1];
 
@@ -120,6 +120,25 @@ describe('testing logic functions', () => {
 
         expect(result).toBe(true);
         expect(result2).toBe(false);
+    });
+
+    it('should render the z', () => {
+
+        store.dispatch(actionMovingBlock({
+            block: Z[0],
+            downKey: false,
+            dataGridState: baseDataGrid,
+            blockPositionVertical: 2,
+            lockedBlocks: baseDataGrid,
+            blockPositionHorizontal: 5,
+            blockColor: Z[5],
+            blockLength: Z[4][0]
+        }));
+
+        const parametersToSend = {horizontal: 0, vertical: 0, locked: false, downKey: false};
+        const results = changeGridStatus(parametersToSend);
+        expect(results.data.dataGridState[1][5]).toBe(5);
+
     });
 
 });

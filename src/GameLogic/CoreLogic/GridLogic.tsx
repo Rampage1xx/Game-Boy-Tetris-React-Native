@@ -9,7 +9,7 @@ export const allZeroes = (cell): boolean => cell === 0;
 const dataObjectFactory =
     (loopFinish?) =>
         (locationChange?) =>
-            (dataParameters: IMakeDataParameter) => (
+            (dataParameters: IMakeDataParameter): IDataObject => (
                 {
                     ...dataParameters,
                     ...locationChange,
@@ -19,8 +19,11 @@ const dataObjectFactory =
 export const changeGridStatus: IChangeGameGrid = (parameters): IReturnTypeGridChange | IGridChangeGameOver => {
     try {
         const {vertical = 0, horizontal = 0, locked, downKey, rotatedBlock} = parameters;
-        const storeStatus: IActionMovingBlockReturnGrid = storeGetState().getIn(['GameLogicReducer', 'gridBlockData', 'data']);
-        const {dataGridState, block, blockPositionVertical, blockPositionHorizontal, lockedBlocks} = storeStatus;
+        const storeStatus: IDataObject = storeGetState().getIn(['GameLogicReducer', 'gridBlockData', 'data']);
+        const {
+            dataGridState, block, blockPositionVertical, blockPositionHorizontal,
+            lockedBlocks, blockColor, blockLength
+        } = storeStatus;
 
         const blockToUse: number[][] = rotatedBlock ? rotatedBlock : block;
 
@@ -33,7 +36,7 @@ export const changeGridStatus: IChangeGameGrid = (parameters): IReturnTypeGridCh
         //gets data default parameters
         const dataDefaultParameters = () => ({
             dataGridState, blockPositionVertical, blockPositionHorizontal,
-            block, lockedBlocks: dataGridState, downKey
+            block, lockedBlocks: dataGridState, downKey, blockColor, blockLength
         });
 
         // recompute  block position when needed
@@ -77,10 +80,9 @@ export const changeGridStatus: IChangeGameGrid = (parameters): IReturnTypeGridCh
             // zeroes are only relevant to the starting  horizontal offset position.
             const correctedPosition = correctedBlockPositionHorizontal + zeros.length;
             // the number to slice should be only those affected by the blocks presence (represented by number one)
-            const endSlice = correctedBlockPositionHorizontal + blockRow.length - zeros.length;
+            const endSlice = correctedBlockPositionHorizontal + blockRow.length;
             const resultRow = temporaryGrid[verticalGridRow].slice(correctedPosition, endSlice);
             const rowIsEmpty = resultRow.every(number => allZeroes(number));
-
             // two blocks have collided
             if (!rowIsEmpty) {
                 if (correctedBlockPositionVertical <= 0) {
@@ -96,7 +98,7 @@ export const changeGridStatus: IChangeGameGrid = (parameters): IReturnTypeGridCh
                     return {locked: true, data: {...preemptiveEndingData(), lockedBlocks: dataGridState}};
                 }
             }
-            fill(temporaryGrid[verticalGridRow], 1, correctedPosition, endSlice);
+            fill(temporaryGrid[verticalGridRow], blockColor, correctedPosition, endSlice);
 
         }
 

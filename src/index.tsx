@@ -1,21 +1,14 @@
 import * as React from 'react';
-import Styled from 'styled-components/native';
-import {Navbar} from './Components/navbar/Navbar';
-import {GameBoy, GameBoyContainer} from './Container/GameBoy/GameBoy';
+import 'react-native';
+import {Provider} from 'react-redux';
+import {AppContainer} from './Container/App/App';
+import {store} from './Store/Reducers';
 
-const IndexBox = Styled.View`
-    width: 100%;
-    height: 100%;
-`;
+export const Index = (props) => {
 
-export class Index extends React.Component<any, any> {
-
-    public render() {
-        return (
-            <IndexBox>
-                <Navbar />
-                <GameBoyContainer/>
-            </IndexBox>
-        );
-    }
-}
+    return (
+        <Provider store={ store }>
+            <AppContainer/>
+        </Provider>
+    );
+};

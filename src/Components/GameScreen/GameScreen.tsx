@@ -1,30 +1,27 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import {createViewGrid} from './Cells';
 
 const GameScreenBoxStyled = styled.View`
-            margin-top: 10%;
-            margin-left: 10%;
-            margin-right: 10%;
+            margin-top: 6%;
+            margin-left: 5%;
+            margin-right: 5%;
             background-color:#556b2f;
-            width: 80%;
+            width: 90%;
             height: 50%;
-     border-bottom-right-radius: 50;
 
 `;
 
 interface IProps {
-    renderGrid: any []
+    renderGrid: any [][];
 }
 
-export class GameScreen extends React.Component<IProps, any> {
+export const GameScreen = (props: IProps) => {
+    const {renderGrid} = props;
+    console.log(renderGrid);
+    return (
+        <GameScreenBoxStyled >
+            {renderGrid}
+        </GameScreenBoxStyled>
+    );
 
-    public render() {
-        return (
-
-            <GameScreenBoxStyled >
-                { this.props.renderGrid }
-            </GameScreenBoxStyled>
-        );
-    }
-}
+};

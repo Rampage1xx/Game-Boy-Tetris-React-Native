@@ -20,7 +20,7 @@ export const rotateBlock = (position: number): number[][] => {
 export const generateBlocksQueue = (index: number): void => {
 
     for (let i = 0; i < index; i++) {
-        const pickedBlock: object = BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
+        const pickedBlock: IBlockObject = BlocksArray[Math.floor(Math.random() * BlocksArray.length)];
 
         store.dispatch(actionUpdateQueue(pickedBlock));
     }
@@ -31,7 +31,7 @@ export const newBlockInGame = (): void => {
     const blocks: List<any> = storeGetState().getIn(['GameLogicReducer', 'queuedBlocks']);
 
     const block: IBlock = blocks.get(0);
-    const grid = storeGetState().getIn(['GameLogicReducer', 'dataGridState']);
+    const grid: number [][] = storeGetState().getIn(['GameLogicReducer', 'dataGridState']);
     store.dispatch(actionCurrentBlock(block));
     store.dispatch(actionRemoveQueuePiece(0));
     store.dispatch(actionGenerateQueue(1));
@@ -42,8 +42,9 @@ export const newBlockInGame = (): void => {
         dataGridState: grid,
         blockPositionVertical: -1,
         lockedBlocks: grid,
-        blockPositionHorizontal: 5
-
+        blockPositionHorizontal: 5,
+        blockColor: block[5],
+        blockLength: block[4][0]
     }));
     //store.dispatch(actionActiveBlock());
     store.dispatch(actionDownKey(false));

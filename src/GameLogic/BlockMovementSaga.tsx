@@ -11,10 +11,13 @@ import delay = Animated.delay;
 
 function* rotateBlockWorker({type, blockRotation}) {
     const rotatedBlock: number[][] = yield call(rotateBlock, blockRotation);
-    const parameters = {horizontal: 0, vertical: 0, locked: false, downKey: false, rotatedBlock}
-    yield call(changeGridStatus, parameters);
-   // yield put();
-
+    const parameters = {horizontal: 0, vertical: 0, locked: false, downKey: false, rotatedBlock};
+    const result = yield call(changeGridStatus, parameters);
+    if (!result.discard) {
+        //renders and caches the result
+        yield put(actionRenderGrid(result.data.dataGridState));
+        yield put(actionMovingBlock(result.data));
+    }
 }
 
 function* horizontalMovementWorker({type, direction}) {

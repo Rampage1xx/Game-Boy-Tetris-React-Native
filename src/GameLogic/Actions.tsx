@@ -15,10 +15,11 @@ export const ROTATE_BLOCK = 'ROTATE_BLOCK';
 
 export const actionStart = () => ({type: START});
 export const actionON = () => ({type: ON});
-export const actionMovingBlock = (parameters: IActionMovingBlockReturnGrid): IEncapusaledActionMovingBlock => {
+export const actionMovingBlock = (parameters: IDataObject): IEncapusaledActionMovingBlock => {
     const {
         block, dataGridState, blockPositionVertical,
-        blockPositionHorizontal, lockedBlocks, downKey
+        blockPositionHorizontal, lockedBlocks, downKey, blockColor,
+        blockLength
     } = parameters;
 
     return {
@@ -29,7 +30,9 @@ export const actionMovingBlock = (parameters: IActionMovingBlockReturnGrid): IEn
             blockPositionVertical,
             blockPositionHorizontal,
             lockedBlocks,
-            downKey
+            downKey,
+            blockColor,
+            blockLength
         }
 
     };
@@ -51,6 +54,6 @@ export const actionActiveBlock = () => ({type: ACTIVE_BLOCK});
 
 export const actionHorizontalMovement = (direction: number) => ({type: HORIZONTAL_MOVEMENT, direction});
 
-export const actionGameOver = (gameOver: boolean) => ({type: GAME_OVER, gameOver})
+export const actionGameOver = (gameOver: boolean) => ({type: GAME_OVER, gameOver});
 
-export const actionRotateBlock = (rotatedBlock: number [][]) => ({type: ROTATE_BLOCK, rotatedBlock})
+export const actionRotateBlock = (rotatedBlock: number [][]) => ({type: ROTATE_BLOCK, rotatedBlock});

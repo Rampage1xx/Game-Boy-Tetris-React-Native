@@ -19,7 +19,7 @@ const GameLogicDefaultState: IGameLogicDefaultState = Map({
 
 export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLogicActions) => {
 
-    //console.log(action.type, state.getIn(['gridBlockData', 'data']));
+    // console.log(action.type, state.getIn(['gridBlockData', 'data']));
 
     switch (action.type) {
 
@@ -47,7 +47,7 @@ export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLo
                 .set('gameOver', action.gameOver);
         case ROTATE_BLOCK:
             return state
-                .setIn(['gridBlockData', 'data', 'block'], action.rotatedBlock)
+                .setIn(['gridBlockData', 'data', 'block'], action.rotatedBlock);
         default:
             return state;
     }

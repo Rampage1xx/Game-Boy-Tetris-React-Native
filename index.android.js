@@ -4,20 +4,14 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { Index } from './dist/index'
+import React, {Component} from "react";
+import {AppRegistry, StyleSheet, Text, View} from "react-native";
+import {Index} from "./dist/Index";
 
 export default class gameBoyNative extends Component {
   render() {
     return (
     <Index/>
-
     );
   }
 }

@@ -1,18 +1,22 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import {ThemedStyledProps} from 'styled-components';
-import {ViewProperties} from 'react-native';
 
-
-
+/*
+ *         height: 5%;
+ width: 6.25%;
+ * */
 export const SingleCellStyled = (styled.View as any)`
-        height: 5%;
-        width: 6.25%;
-        background-color: ${props => props.active ? 'black' : ''}
+        height: 14;
+        width: 10%;
+        border-style: solid;
+        border-width: 1;
+        border-color: black;
 `;
 
 const CompleteRowStyled = styled.View`
         flex-direction: row;
+        height: 14;
+        width: 100%;
 `;
 
 export const createViewGrid = (grid: number[][]): any [] => {
@@ -28,7 +32,7 @@ export const createViewGrid = (grid: number[][]): any [] => {
 
             const active = grid[verticalIndex][horizontalRowsMade] === 1;
 
-            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade) } active={ active }  />);
+            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade) } active={ active }/>);
             row.push(cell);
         }
         const CompleteRow = (
