@@ -1,7 +1,9 @@
 import * as React from 'react';
+import {connect} from 'react-redux';
 import styled from 'styled-components/native';
 import {GameScreen} from '../../Components/GameScreen/GameScreen';
 import {LeftSide} from '../../Components/LeftSide/LeftSide';
+import {createViewGrid} from '../../Components/GameScreen/Cells';
 
 export const GameBoyBox = styled.View`
      margin-top: 30;
@@ -12,13 +14,21 @@ export const GameBoyBox = styled.View`
      border-bottom-right-radius: 50;
 `;
 
-export class GameBoy extends React.Component<any, any> {
+interface IProps {
+    grid: number [][];
+}
 
+export class GameBoy extends React.Component<IProps, any> {
+    private grid: any [];
+    constructor(props) {
+        super(props)
+        this.grid = createViewGrid(props.grid);
+    }
     public render() {
 
         return (
             <GameBoyBox>
-                <GameScreen />
+                <GameScreen renderGrid={ this.grid } />
                 <LeftSide />
             </GameBoyBox>
 
@@ -27,3 +37,12 @@ export class GameBoy extends React.Component<any, any> {
     }
 
 }
+
+const mapStateToProps = (state, ownProps) => {
+    const getStoreStatus = (value: string) => (state as Map<string, any>).get(value);
+
+    return {
+        grid: getStoreStatus('GameLogicReducer').get('dataGridState')
+    };
+};
+const GameBoyContainer = connect(mapStateToProps, undefined)(GameBoy);

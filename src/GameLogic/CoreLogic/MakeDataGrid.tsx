@@ -1,5 +1,4 @@
 import * as React from 'react';
-import 'react-native';
 
 export const makeDataGrid = () => {
     const horizontalSquares = 10;
@@ -16,6 +15,4 @@ export const makeDataGrid = () => {
 
     return temporaryGrid;
 };
-
-
 

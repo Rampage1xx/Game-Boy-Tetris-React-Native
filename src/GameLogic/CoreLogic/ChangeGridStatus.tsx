@@ -4,28 +4,16 @@ import {store} from '../../Store/Reducers';
 
 const storeGetState = () => (store.getState() as Map<string, Map<string, any>>);
 
-export const changeGridStatus: IChangeGameGridNew = ({vertical = 0, horizontal = 0, locked, downKey}): IReturnTypeGridChange => {
+export const changeGridStatus: IChangeGameGridNew = ({vertical = 0, horizontal = 0, locked, downKey}): IReturnTypeGridChange | IGridChangeGameOver => {
     try {
         const storeStatus: IActionMovingBlockReturnGrid = storeGetState().getIn(['GameLogicReducer', 'gridBlockData', 'data']);
         const {dataGridState, block, blockPositionVertical, blockPositionHorizontal, lockedBlocks} = storeStatus;
+
         const correctedBlockPositionHorizontal = blockPositionHorizontal + horizontal;
         const correctedBlockPositionVertical = blockPositionVertical + vertical;
-        console.log(correctedBlockPositionVertical)
+
         const horizontalGridLength = 10;
         const temporaryGrid = cloneDeep(lockedBlocks);
-       // console.log(correctedBlockPositionVertical)
-
-        // console.log(storeStatus)
-        /*    const makeData = (newDataGridState, newLockedBlocks) => (
-         {
-         data: {
-         dataGridState: newDataGridState,
-         correctedBlockPositionVertical,
-         correctedBlockPositionHorizontal,
-         block,
-         lockedBlocks: newLockedBlocks
-         }
-         });*/
 
         const error = 'Illegal movement, the space occupied by the tetronimo is bigger than the grid';
 
@@ -55,20 +43,21 @@ export const changeGridStatus: IChangeGameGridNew = ({vertical = 0, horizontal =
             const searchResult = resultRow.indexOf(1);
 
             if (searchResult !== -1) {
-                if(correctedBlockPositionVertical <= 0) {
-                    return {GAMEOVER: true}
+                if (correctedBlockPositionVertical <= 0) {
+                    return {gameOver: true};
                 }
-                    return {
-                        data: {
-                            dataGridState,
-                            blockPositionVertical: correctedBlockPositionVertical,
-                            blockPositionHorizontal: correctedBlockPositionHorizontal,
-                            block,
-                            lockedBlocks: dataGridState,
-                            downKey
 
-                        }, locked
-                    };
+                return {
+                    data: {
+                        dataGridState,
+                        blockPositionVertical: correctedBlockPositionVertical,
+                        blockPositionHorizontal: correctedBlockPositionHorizontal,
+                        block,
+                        lockedBlocks: dataGridState,
+                        downKey
+
+                    }, locked
+                };
 
             }
             fill(temporaryGrid[verticalGridRow], 1, correctedPosition, endSlice);

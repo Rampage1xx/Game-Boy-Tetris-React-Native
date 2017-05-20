@@ -1,19 +1,16 @@
 export const START = 'START';
 export const MOVING_BLOCK = 'MOVING_BLOCK';
 export const TURN_OFF = 'TURN_OFF';
-export const LEFT_KEY = 'LEFT_KEY';
-export const RIGHT_KEY = 'RIGHT_KEY';
 export const DOWN_KEY = 'DOWN_KEY';
 export const RENDER_GRID = 'RENDER_GRID';
-export const NEXT_BLOCK = 'NEXT_BLOCK';
 export const GENERATE_QUEUE = 'GENERATE_QUEUE';
 export const UPDATE_QUEUE = 'UPDATE_QUEUE';
 export const REMOVE_QUEUE_PIECE = 'REMOVE_QUEUE_PIECE';
-export const STATIC_BLOCKS = 'STATIC_BLOCKS';
-export const UPDATE_CURRENT_BLOCK = 'UPDATE_CURRENT_BLOCK';
 export const CURRENT_BLOCK = 'CURRENT_BLOCK';
 export const ACTIVE_BLOCK = 'ACTIVE_BLOCK';
 export const ON = 'ON';
+export const HORIZONTAL_MOVEMENT = 'HORIZONTAL_MOVEMENT';
+export const GAME_OVER = 'GAME_OVER';
 
 export const actionStart = () => ({type: START});
 export const actionON = () => ({type: ON});
@@ -41,18 +38,16 @@ export const actionGenerateQueue = (blocksToMake: number) => ({type: GENERATE_QU
 
 export const actionRenderGrid = (dataGridState) => ({type: RENDER_GRID, dataGridState});
 
-export const actionNextBlock = () => ({type: NEXT_BLOCK});
-
 export const actionCurrentBlock = (block) => ({type: CURRENT_BLOCK, block});
 
 export const actionRemoveQueuePiece = (blockToRemove: number) => ({type: REMOVE_QUEUE_PIECE, blockToRemove});
 
 export const actionUpdateQueue = (blockToAdd: {}) => ({type: UPDATE_QUEUE, blockToAdd});
 
-export const actionDownKey = () => ({type: DOWN_KEY});
-
-export const actionLeftKey = () => ({type: LEFT_KEY});
-
-export const actionRightKey = () => ({type: RIGHT_KEY});
+export const actionDownKey = (down: boolean) => ({type: DOWN_KEY, down});
 
 export const actionActiveBlock = () => ({type: ACTIVE_BLOCK});
+
+export const actionHorizontalMovement = (direction: number) => ({type: HORIZONTAL_MOVEMENT, direction});
+
+export const actionGameOver = (gameOver: boolean) => ({type: GAME_OVER, gameOver})

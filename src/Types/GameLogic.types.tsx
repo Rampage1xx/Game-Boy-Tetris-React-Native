@@ -19,6 +19,10 @@ interface IReturnTypeGridChange {
     completed?: boolean;
 }
 
+interface IGridChangeGameOver {
+    gameOver: boolean;
+}
+
 interface IEncapusaledActionMovingBlock {
     data: IActionMovingBlockReturnGrid;
     type: string;
@@ -33,6 +37,7 @@ interface IGameLogicActions {
     blockToRemove: number;
     data: IActionMovingBlockReturnGrid;
     block: number[][];
+    gameOver: boolean;
 }
 
 interface IChangeGameGridNew {

@@ -1,13 +1,13 @@
 import {List, Map} from 'immutable';
-import {CURRENT_BLOCK, MOVING_BLOCK, REMOVE_QUEUE_PIECE, RENDER_GRID, UPDATE_QUEUE} from './Actions';
+import {CURRENT_BLOCK, GAME_OVER, MOVING_BLOCK, REMOVE_QUEUE_PIECE, RENDER_GRID, UPDATE_QUEUE} from './Actions';
 import {makeDataGrid} from './CoreLogic/MakeDataGrid';
 
-declare type IGameLogicDefaultState = Map<string, any[] | List<any> | Map<string, any[] | Map<string, {}>>>;
+declare type IGameLogicDefaultState = Map<string, boolean | any[] | List<any> | Map<string, any[] | Map<string, {}>>>;
 
 const GameLogicDefaultState: IGameLogicDefaultState = Map({
     dataGridState: makeDataGrid(),
     queuedBlocks: List([]),
-    //  staticBlocksGrid: makeDataGrid(),
+    gameOver: false,
     gridBlockData: Map({
         blockCombinations: [],
         data: Map({})
@@ -16,8 +16,9 @@ const GameLogicDefaultState: IGameLogicDefaultState = Map({
 });
 
 export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLogicActions) => {
-   // console.log(action.type, state.getIn(['gridBlockData', 'data']));
-   //  console.log(action.type, state.getIn(['gridBlockData', 'data']))
+
+    //console.log(action.type, state.getIn(['gridBlockData', 'data']));
+
     switch (action.type) {
 
         case RENDER_GRID:
@@ -39,6 +40,9 @@ export const GameLogicReducer = (state = GameLogicDefaultState, action?: IGameLo
         case MOVING_BLOCK:
             return state
                 .setIn(['gridBlockData', 'data'], action.data);
+        case GAME_OVER:
+            return state
+                .set('gameOver', action.gameOver);
         default:
             return state;
     }

@@ -2,10 +2,11 @@ import {Map} from 'immutable';
 import * as React from 'react';
 import {store} from '../../Store/Reducers';
 import {actionON, actionStart} from '../Actions';
-import {L} from '../CoreLogic/Blocks';
+import {L} from '../CoreLogic/BlocksAttributes';
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-const getGridState = () => (store.getState() as Map<string, any>).get('GameLogicReducer').get('dataGridState');
+const getGameLogicState = (value: string) => (store.getState() as Map<string, any>)
+    .get('GameLogicReducer').get(value);
 let baseDataGrid: number[][];
 let parameters: IChangeGridStatusParameters;
 beforeEach(() => {
@@ -55,12 +56,12 @@ const expectedDataWithBlock = {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 };
-declare let window
+declare let window;
 
 describe('testing logic functions', () => {
     /*
      it('should generate a view grid', () => {
-     const grid = createGrid();
+     const grid = createViewGrid();
      const shallowGrid = shallow(<View>{ grid }</View>);
      expect(shallowGrid.children()).toHaveLength(16);
      });
@@ -102,12 +103,10 @@ describe('testing logic functions', () => {
      });
      */
 
-    it('should start', async (done) => {
-        window.jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000
+    it('should complete a game round', async () => {
         store.dispatch(actionON());
         store.dispatch(actionStart());
-       // store.dispatch(actionStart());
-        await sleep(1000).then(r =>  done());
+        expect(getGameLogicState('gameOver')).toBe(true);
 
     });
 

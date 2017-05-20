@@ -1,14 +1,9 @@
 import {List, Map} from 'immutable';
 import {store} from '../../Store/Reducers';
 import {
-    actionActiveBlock,
-    actionCurrentBlock,
-    actionGenerateQueue,
-    actionMovingBlock,
-    actionRemoveQueuePiece,
-    actionUpdateQueue
+    actionCurrentBlock, actionDownKey, actionGenerateQueue, actionMovingBlock, actionRemoveQueuePiece, actionUpdateQueue
 } from '../Actions';
-import {BlocksArray} from './Blocks';
+import {BlocksArray} from './BlocksAttributes';
 
 export const storeGetState = () => (store.getState() as Map<string, Map<string, any>>);
 
@@ -40,5 +35,6 @@ export const newBlockInGame = () => {
         blockPositionHorizontal: 5
 
     }));
-    store.dispatch(actionActiveBlock());
+    //store.dispatch(actionActiveBlock());
+    store.dispatch(actionDownKey(false));
 };

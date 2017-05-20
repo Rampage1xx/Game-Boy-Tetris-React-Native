@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import {createGrid} from './Cells';
+import {createViewGrid} from './Cells';
 
 const GameScreenBoxStyled = styled.View`
             margin-top: 10%;
@@ -13,19 +13,17 @@ const GameScreenBoxStyled = styled.View`
 
 `;
 
-export class GameScreen extends React.Component<any, any> {
-    private grid: any[];
+interface IProps {
+    renderGrid: any []
+}
 
-    constructor(props) {
-        super(props);
-        this.grid = createGrid();
-    }
+export class GameScreen extends React.Component<IProps, any> {
 
     public render() {
         return (
 
             <GameScreenBoxStyled >
-                { this.grid }
+                { this.props.renderGrid }
             </GameScreenBoxStyled>
         );
     }
