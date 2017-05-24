@@ -4,18 +4,17 @@ import {CenterRow} from './Center';
 import {Rows} from './Rows';
 
 const DigitalPadBox = styled.View`
-        width: 70%;
-        height: 30%;
+        width: 100;
+        height: 100;
         background-color:red;
         justify-content: center;
-        align-items: center;
+        flex-direction: column;
 `;
 
 export const DigitalPadDirection = styled.View`
-       height:100%;
-
-       width:33%;
-       background-color:black
+       height:33;
+       width:33;
+       background-color:black;
 `;
 
 export const DigitalPad = (props) => {

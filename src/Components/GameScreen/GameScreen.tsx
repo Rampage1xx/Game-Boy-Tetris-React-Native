@@ -17,7 +17,7 @@ interface IProps {
 
 export const GameScreen = (props: IProps) => {
     const {renderGrid} = props;
-    console.log(renderGrid);
+
     return (
         <GameScreenBoxStyled >
             {renderGrid}

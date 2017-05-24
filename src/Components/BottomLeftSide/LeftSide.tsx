@@ -1,18 +1,17 @@
 import * as React from 'react';
-import {Animated} from 'react-native';
+import {Text} from 'react-native';
 import styled from 'styled-components/native';
 import {DigitalPad} from '../DigitalPad/DigitalPad';
-import Text = Animated.Text;
 
 const LeftSideBox = styled.View`
+    flex:1;
     width: 40%;
-    height: 50%;
+    height: 100%;
     border:1;
     border-color:black;
-    align-items:center;
 `;
 
-export const LeftSide = (props) => {
+export const BottomLeftSide = (props) => {
 
     return (
         <LeftSideBox>

@@ -5,12 +5,30 @@ import styled from 'styled-components/native';
  *         height: 5%;
  width: 6.25%;
  * */
+const colors = (props) => {
+    switch (props.color) {
+        case 1:
+            return 'red';
+        case 2:
+            return 'blue';
+        case 3:
+            return 'yellow';
+        case 4:
+            return '#add8e6';
+        case 5:
+            return '#d9534f';
+        default:
+            return 'white';
+    }
+};
+
 export const SingleCellStyled = (styled.View as any)`
         height: 14;
         width: 10%;
         border-style: solid;
         border-width: 1;
         border-color: black;
+        background-color: ${props => colors }
 `;
 
 const CompleteRowStyled = styled.View`
@@ -30,9 +48,11 @@ export const createViewGrid = (grid: number[][]): any [] => {
         for (let horizontalRowsMade = 0; horizontalRowsMade < horizontalSquares; horizontalRowsMade++) {
             // TODO: should generate the block color
 
-            const active = grid[verticalIndex][horizontalRowsMade] === 1;
+            //const active = grid[verticalIndex][horizontalRowsMade] === 1;
 
-            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade) } active={ active }/>);
+            const active: number = grid[verticalIndex][horizontalRowsMade] !== 0 ? grid[verticalIndex][horizontalRowsMade] : 0;
+
+            const cell = (<SingleCellStyled key={ ('' + verticalIndex + horizontalRowsMade) } colors={ active }/>);
             row.push(cell);
         }
         const CompleteRow = (
