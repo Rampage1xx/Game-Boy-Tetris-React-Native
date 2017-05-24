@@ -44,6 +44,7 @@ export const RightButton = (props) => {
                 </RightButtonStyled>
 
             </RightButtonBoxStyled>
+            <FillerStyled/>
 
             <FillerStyled/>
         </FillerColumns>
